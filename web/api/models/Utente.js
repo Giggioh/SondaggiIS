@@ -13,6 +13,16 @@ module.exports = {
       model: "Account",
       via: "account",
       through: "AssociazioneAccount"
+    },
+
+    nome: {
+      type: 'string',
+      required: true
+    },
+
+    cognome: {
+      type: 'string',
+      required: true
     }
 
   }
