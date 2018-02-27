@@ -9,6 +9,24 @@ module.exports = {
 
   attributes: {
 
+    infoStatistica:{
+      model:'InfoStatistica'
+    },
+
+    valida:{
+      type:'boolean',
+      required:true
+    },
+
+    dataAggiornamento:{
+      type:'date',
+      required:true
+    },
+
+    sondaggi:{
+      collection:'Sondaggio',
+      via:"statistica"
+    }
   }
 };
 

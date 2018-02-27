@@ -9,6 +9,18 @@ module.exports = {
 
   attributes: {
 
+    nome:{
+      type:'string',
+      required:true,
+      defaultTo:'null',
+      primarykey:true
+    },
+
+    domande:{
+      collection:'Domanda',
+      via:'argomento',
+      required:true
+    }
   }
 };
 

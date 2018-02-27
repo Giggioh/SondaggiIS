@@ -9,6 +9,21 @@ module.exports = {
 
   attributes: {
 
+    testo:{
+      type:'text',
+      required:true
+    },
+
+    argomento:{
+      model:'Argomento',
+      defaultsTo:'null',
+      required:true
+    },
+
+    risposte:{
+      collection:'Risposta',
+      via:'domanda'
+    }
   }
 };
 

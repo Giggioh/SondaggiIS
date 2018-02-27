@@ -9,6 +9,24 @@ module.exports = {
 
   attributes: {
 
+    dataCompilazione:{
+      type:'date',
+      required:true
+    },
+
+    tempoCompilazione:{
+      type:'datetime',
+      required:true
+    },
+
+    sondaggio:{
+      model:'Sondaggio'
+    },
+
+    risposte:{
+      collection:'Risposta',
+      via:'rispostaData'
+    }
   }
 };
 

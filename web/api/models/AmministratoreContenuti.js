@@ -12,9 +12,20 @@ module.exports = {
     account: {
       model: "Account",
       via: "account",
-      through: "AssociazioneAccount"
-    }
+      through: "AssociazioneAccount",
+      unique:true
+    },
 
+    attivo:{
+      type:'boolean',
+      required:true
+    },
+
+    sondaggi:{
+      collection:'Sondaggio',
+      via:'amministratoreContenuti',
+      required:true
+    }
   }
 };
 
