@@ -17,10 +17,15 @@ module.exports = {
     hash: {
       type: 'string',
       required: true
-    }
+    },
 
     utente: {
       model: 'Utente',
+      via: 'account'
+    },
+
+    amministratoreContenuti: {
+      model: 'AmministratoreContenuti',
       via: 'account'
     }
 
