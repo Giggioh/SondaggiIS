@@ -20,14 +20,22 @@ module.exports = {
     },
 
     utente: {
-      model: 'Utente',
-      via: 'account'
+      model: "Utente",
+      via: "utente",
+      through: "AssociazioneAccount"
     },
 
     amministratoreContenuti: {
-      model: 'AmministratoreContenuti',
-      via: 'account'
-    }
+      model: "AmministratoreContenuti",
+      via: "amministratoreContenuti",
+      through: "AssociazioneAccount"
+    },
+
+    amministratoreSistema: {
+      model: "AmministratoreSistema",
+      via: "amministratoreSistema",
+      through: "AssociazioneAccount"
+    },
 
   }
 };

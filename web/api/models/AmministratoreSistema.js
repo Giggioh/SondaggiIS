@@ -9,6 +9,12 @@ module.exports = {
 
   attributes: {
 
+    account: {
+      model: "Account",
+      via: "account",
+      through: "AssociazioneAccount"
+    }
+
   }
 };
 
