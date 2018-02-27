@@ -9,6 +9,11 @@ module.exports = {
 
   attributes: {
 
+    account: {
+      model: 'Account',
+      required: true
+    }
+
   }
 };
 

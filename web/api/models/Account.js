@@ -9,6 +9,21 @@ module.exports = {
 
   attributes: {
 
+    name: {
+      type: 'string',
+      required: true
+    },
+
+    hash: {
+      type: 'string',
+      required: true
+    }
+
+    utente: {
+      model: 'Utente',
+      via: 'account'
+    }
+
   }
 };
 
