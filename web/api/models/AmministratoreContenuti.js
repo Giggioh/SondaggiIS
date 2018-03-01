@@ -24,7 +24,6 @@ module.exports = {
     sondaggi:{
       collection:'Sondaggio',
       via:'amministratoreContenuti',
-      required:true
     }
   }
 };

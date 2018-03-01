@@ -10,13 +10,13 @@ module.exports = {
   attributes: {
 
     testo:{
-      type:'text',
+      type:'string',
+      columnType:'text',
       required:true
     },
 
     argomento:{
       model:'Argomento',
-      defaultsTo:'null',
       required:true
     },
 

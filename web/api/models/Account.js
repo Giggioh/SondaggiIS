@@ -20,19 +20,19 @@ module.exports = {
     },
 
     utente: {
-      model: "Utente",
-      via: "utente",
-      through: "AssociazioneAccount"
+      collection: "Utente",
+      through: "AssociazioneAccount",
+      via: "utente"
     },
 
     amministratoreContenuti: {
-      model: "AmministratoreContenuti",
+      collection: "AmministratoreContenuti",
       via: "amministratoreContenuti",
       through: "AssociazioneAccount"
     },
 
     amministratoreSistema: {
-      model: "AmministratoreSistema",
+      collection: "AmministratoreSistema",
       via: "amministratoreSistema",
       through: "AssociazioneAccount"
     },

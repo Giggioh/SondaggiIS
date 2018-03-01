@@ -12,7 +12,6 @@ module.exports = {
     nome:{
       type:'string',
       required: true,
-      primarykey:true
     },
 
     argomento:{
@@ -21,7 +20,8 @@ module.exports = {
     },
 
     dataPubblicazione:{
-      type:'date',
+      type:'string', //date non è più supportato in sails 1.0
+      columnType:'date', //si usa string con columnType invece
       required: true
     },
 

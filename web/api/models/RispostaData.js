@@ -10,12 +10,14 @@ module.exports = {
   attributes: {
 
     dataCompilazione:{
-      type:'date',
+      type:'string', //date non è supportato da sails 1.0
+      columnType:'date', //quindi type diventa string e columnType diventa date e si ottiene lo stesso risultato
       required:true
     },
 
     tempoCompilazione:{
-      type:'datetime',
+      type:'string',
+      columnType:'datetime', //come sopra
       required:true
     },
 

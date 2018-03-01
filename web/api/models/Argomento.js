@@ -11,15 +11,12 @@ module.exports = {
 
     nome:{
       type:'string',
-      required:true,
-      defaultTo:'null',
-      primarykey:true
+      required:true
     },
 
     domande:{
       collection:'Domanda',
-      via:'argomento',
-      required:true
+      via:'argomento'
     }
   }
 };
