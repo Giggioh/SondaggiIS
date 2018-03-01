@@ -36,7 +36,6 @@ module.exports = {
       through: "AssociazioneAccount",
       via: "account"
     },
-
   }
 };
 
