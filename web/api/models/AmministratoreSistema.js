@@ -10,10 +10,10 @@ module.exports = {
   attributes: {
 
     account: {
-      model: "Account",
-      via: "account",
-      through: "AssociazioneAccount"
-    }
+      collection: "Account",
+      through: "AssociazioneAccount",
+      via: "amministratoreSistema"
+    },
 
   }
 };

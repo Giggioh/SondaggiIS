@@ -12,7 +12,7 @@ module.exports = {
     account: {
       collection: "Account",
       through: "AssociazioneAccount",
-      via: "account"
+      via: "utente"
     },
 
     nome: {
