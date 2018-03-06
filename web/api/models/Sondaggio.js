@@ -16,7 +16,7 @@ module.exports = {
 
     argomento:{
       model:'Argomento',
-      required:true
+      //required:true
     },
 
     dataPubblicazione:{
@@ -27,27 +27,22 @@ module.exports = {
 
     chiuso:{
       type:'boolean',
-      required: true
+      //required: true
     },
 
     bozza:{
       type:'boolean',
-      required: true
+      //required: true
     },
 
     cancellato:{
       type:'boolean',
-      required: true
+      //required: true
     },
 
     amministratoreContenuti:{
       model:'AmministratoreContenuti',
       unique: true
-    },
-
-    argomento:{
-      type:'string',
-      required:true
     },
 
     risposteDate:{

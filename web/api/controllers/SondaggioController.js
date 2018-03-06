@@ -6,6 +6,26 @@
  */
 
 module.exports = {
-	
+
+  'new' :function (req, res) {
+    res.view('/Sondaggi/new');
+  },
+
+  'crea': function (req, res) {
+    var nome = req.body.nomeSondaggio;
+    var pubblicazione = Date.now();
+    Sondaggio.create({nome:nome, dataPubblicazione: pubblicazione}).exec(function(err){
+      if(err) res.send(500, {error: 'database error'});
+    });
+    res.redirect('/Sondaggio/Riepilogo', id);
+  },
+
+  'riepilogo':function (req, res) {
+    Sondaggi.findone({id: req.id}).exec(function (err) {
+      if(err)
+        res.send({error:'sondaggio non salvato'});
+    });
+    res.view('/Sondaggi/Riepilogo');
+  },
 };
 
