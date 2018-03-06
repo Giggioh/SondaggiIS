@@ -8,11 +8,11 @@
 module.exports = {
 
   'new' :function (req, res) {
-    res.view('/Sondaggi/new');
+    res.view('/Sondaggio/new');
   },
 
   'crea': function (req, res) {
-    var nome = req.body.nomeSondaggio;
+    var nome = req.body.nomeSondaggio.text().toString();
     var pubblicazione = Date.now();
     Sondaggio.create({nome:nome, dataPubblicazione: pubblicazione}).exec(function(err){
       if(err) res.send(500, {error: 'database error'});
@@ -25,7 +25,7 @@ module.exports = {
       if(err)
         res.send({error:'sondaggio non salvato'});
     });
-    res.view('/Sondaggi/Riepilogo');
+    res.view('/Sondaggio/Riepilogo');
   },
 };
 
