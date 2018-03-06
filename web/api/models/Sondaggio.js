@@ -14,15 +14,15 @@ module.exports = {
       required: true,
     },
 
-    argomento:{
-      model:'Argomento',
-      //required:true
-    },
-
     dataPubblicazione:{
       type:'string', //date non è più supportato in sails 1.0
       columnType:'date', //si usa string con columnType invece
       required: true
+    },
+
+    argomento:{
+      model:'Argomento',
+      //required:true
     },
 
     chiuso:{
@@ -42,16 +42,16 @@ module.exports = {
 
     amministratoreContenuti:{
       model:'AmministratoreContenuti',
-      unique: true
+      unique: true,
     },
 
     risposteDate:{
       collection:'RispostaData',
-      via:'sondaggio'
+      via:'sondaggio',
     },
 
-    statistica:{
-      model:'Statistica'
+    statistica: {
+      model: 'Statistica',
     }
   }
 };

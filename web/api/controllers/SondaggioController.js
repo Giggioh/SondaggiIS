@@ -8,24 +8,34 @@
 module.exports = {
 
   'new' :function (req, res) {
-    res.view('/Sondaggio/new');
+    res.view();
   },
 
-  'crea': function (req, res) {
-    var nome = req.body.nomeSondaggio.text().toString();
-    var pubblicazione = Date.now();
-    Sondaggio.create({nome:nome, dataPubblicazione: pubblicazione}).exec(function(err){
-      if(err) res.send(500, {error: 'database error'});
+  create: function (req, res) {
+    var nome = req.param("nomeSondaggio");
+    var pubblicazione = Date.now().toString();
+    Sondaggio.create({nome: nome, dataPubblicazione: pubblicazione}).exec(function (err, sondaggio) {
+      if(err) res.send({error:'sondaggio non salvato'});
+      res.redirect('/Sondaggio/summary');
     });
-    res.redirect('/Sondaggio/Riepilogo', id);
   },
 
-  'riepilogo':function (req, res) {
-    Sondaggi.findone({id: req.id}).exec(function (err) {
-      if(err)
+  'summary':function (req, res) {
+    Sondaggi.findone(req.param('id')).exec(function (err, sondaggio) {
+      if(err){
         res.send({error:'sondaggio non salvato'});
+      }
+      res.view({Sondaggio:sondaggio});
     });
-    res.view('/Sondaggio/Riepilogo');
   },
+
+  'completeSurvey':function (req, res) {
+    Sondaggio.findone(req.param('id')).exec(function (rer,sondaggio) {
+      if(err) {
+        res.send({error:'domande non salvate'});
+      }
+    });
+    Domanda.find()
+  }
 };
 

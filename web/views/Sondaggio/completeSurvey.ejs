@@ -1,0 +1,22 @@
+<h1 class="titoliPagina">Crea il tuo nuovo sondaggio</h1><br>
+<label for="nome">nome:</label>
+<input name="nomeSondaggio">
+<a href="/Domanda/new"><button type="button" name="insQuestion">inserisci domande</button></a><br>
+<div class="divDomandeCompleto">
+  <table class="tableDomandeSondaggio">
+    <thead>
+    <tr>
+      <th>Domande</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% Sondaggi.forEach(function (sondaggio) { %>
+          <tr>
+            <td><%= sondaggio%></td>
+          </tr>
+      <%})%>
+    </tbody>
+  </table>
+</div>
+<a href="/Sondaggio/create"><button type="button" name="crea">crea</button> </a>
+<a href="/Sondaggio/show"><button type="button" name="show">salva come bozza</button></a>
