@@ -13,7 +13,7 @@ module.exports = {
 
   create: function (req, res, next) {
     var nome = req.param("nome");
-    Sondaggio.create({nome: nome}).exec(function (err, sondaggio) { //TODO: deve essere direttamente linkato all'utente loggato
+    Sondaggio.create({nome: nome, bozza:true}).exec(function (err, sondaggio) { //TODO: deve essere direttamente linkato all'utente loggato
       if(err) next(err);
       res.redirect('/sondaggio/summary/'+sondaggio.id); //EDIT: qui mancava l'id, per questo summary non funzionava
     });
