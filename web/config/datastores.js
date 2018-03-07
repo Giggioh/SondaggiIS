@@ -18,7 +18,7 @@ module.exports.datastores = {
     database: 'sondaggi_is'
   }*/
 
-  'sondaggiISMysql': {
+  default: {
     adapter: 'sails-mysql',
     url: 'mysql://sondaggi_is:Sondaggi2017@localhost:3306/sondaggi_is'
   }
