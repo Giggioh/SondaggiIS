@@ -10,9 +10,9 @@ module.exports = {
   attributes: {
 
     account: {
-      collection: "Account",
-      through: "AssociazioneAccount",
-      via: "amministratoreContenuti"
+      model: "Account",
+      required: true,
+      unique: true
     },
 
     attivo:{

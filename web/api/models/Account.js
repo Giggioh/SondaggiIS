@@ -11,7 +11,8 @@ module.exports = {
 
     username: {
       type: 'string',
-      required: true
+      required: true,
+      unique: true
     },
 
     hash: {
@@ -21,19 +22,16 @@ module.exports = {
 
     utente: {
       collection: "Utente",
-      through: "AssociazioneAccount",
       via: "account"
     },
 
     amministratoreContenuti: {
       collection: "AmministratoreContenuti",
-      through: "AssociazioneAccount",
       via: "account"
     },
 
     amministratoreSistema: {
       collection: "AmministratoreSistema",
-      through: "AssociazioneAccount",
       via: "account"
     },
   }

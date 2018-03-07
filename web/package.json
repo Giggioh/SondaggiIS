@@ -30,7 +30,7 @@
     "sails-hook-orm": "^2.0.0-23",
     "sails-hook-sockets": "^1.5.2-0",
     "sails-mysql": "^1.0.0-17",
-    "sha256": "^0.2.0"
+    "sha.js": "^2.4.10"
   },
   "scripts": {
     "debug": "node debug app.js",
