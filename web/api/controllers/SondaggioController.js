@@ -11,29 +11,24 @@ module.exports = {
     res.view();
   },
 
-  create: function (req, res) {
-    var nome = req.param("nomeSondaggio");
-    var pubblicazione = Date.now().toString();
-    Sondaggio.create({nome: nome, dataPubblicazione: pubblicazione}).exec(function (err, sondaggio) {
-      if(err) res.send({error:'sondaggio non salvato'});
-      res.redirect('/Sondaggio/summary');
+  create: function (req, res, next) {
+    var nome = req.param("nome");
+    Sondaggio.create({nome: nome}).exec(function (err, sondaggio) { //TODO: deve essere direttamente linkato all'utente loggato
+      if(err) next(err);
+      res.redirect('/sondaggio/summary/'+sondaggio.id); //EDIT: qui mancava l'id, per questo summary non funzionava
     });
   },
 
-  'summary':function (req, res) {
-    Sondaggi.findone(req.param('id')).exec(function (err, sondaggio) {
-      if(err){
-        res.send({error:'sondaggio non salvato'});
-      }
-      res.view({Sondaggio:sondaggio});
+  summary:function (req, res, next) {
+    Sondaggio.findOne(req.param('id')).exec(function (err, sondaggio) {
+      if(err) next(err);
+      res.json(sondaggio);
     });
   },
 
-  'completeSurvey':function (req, res) {
-    Sondaggio.findone(req.param('id')).exec(function (rer,sondaggio) {
-      if(err) {
-        res.send({error:'domande non salvate'});
-      }
+  completeSurvey:function (req, res, next) {
+    Sondaggio.findOne(req.param('id')).exec(function (err, sondaggio) {
+      if(err) next(err);
     });
     Domanda.find()
   }

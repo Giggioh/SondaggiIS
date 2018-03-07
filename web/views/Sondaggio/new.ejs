@@ -1,6 +1,9 @@
 <h1 class="titoliPagina">Crea il tuo nuovo sondaggio</h1><br>
-<label for="nome">nome:</label>
-<input name="nomeSondaggio">
-<a href="/Domanda/new"><button type="button" name="insQuestion">inserisci domande</button></a><br>
+<label for="nome">Nome:</label>
+
+<form action="/sondaggio/create" method="POST">
+  <input type="text" name="nome">
+  <button type="submit" >Crea</button>
+</form>
 
 

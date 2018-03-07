@@ -19,7 +19,7 @@ module.exports = {
     },
 
     dataAggiornamento:{
-      type:'string',
+      type:'ref',
       columnType:'date', //come altri
       required:true
     },
