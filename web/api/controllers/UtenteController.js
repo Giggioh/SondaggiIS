@@ -21,7 +21,7 @@ module.exports = {
     cognome=req.param("cognome");
 
     sails.getDatastore().transaction(function(db,proceed) {
-      Account.create({username: username, password: password}).exec(function(err,account) {
+      Account.create({username: username, hash: password}).exec(function(err,account) {
         if (err) return proceed(err);
 
         Utente.create({nome: nome, cognome: cognome, account: account}).exec(function(err,utente) {
