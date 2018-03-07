@@ -24,11 +24,6 @@ module.exports = {
     sondaggio:{
       model:'Sondaggio'
     },
-
-    risposte:{
-      collection:'Risposta',
-      via:'rispostaData'
-    }
   }
 };
 

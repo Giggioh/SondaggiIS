@@ -15,22 +15,15 @@ module.exports = {
     var nome = req.param("nome");
     Sondaggio.create({nome: nome, bozza:true}).exec(function (err, sondaggio) { //TODO: deve essere direttamente linkato all'utente loggato
       if(err) next(err);
-      res.redirect('/sondaggio/summary/'+sondaggio.id); //EDIT: qui mancava l'id, per questo summary non funzionava
+      res.redirect('/Sondaggio/sArgomento/'+sondaggio.id);
     });
   },
 
-  summary:function (req, res, next) {
-    Sondaggio.findOne(req.param('id')).exec(function (err, sondaggio) {
+  'sArgomento': function (req,res,next) {
+    Sondaggio.findone(req.param('id')).exec(function (err, sondaggio) {
       if(err) next(err);
-      res.json(sondaggio);
+      res.view({Sondaggio:sondaggio});
     });
-  },
-
-  completeSurvey:function (req, res, next) {
-    Sondaggio.findOne(req.param('id')).exec(function (err, sondaggio) {
-      if(err) next(err);
-    });
-    Domanda.find()
   }
 };
 

@@ -14,8 +14,9 @@ module.exports = {
       required:true
     },
 
-    rispostaData:{
-      model:'RispostaData'
+    testo:{
+      type:'string',
+      required:true
     }
   }
 };

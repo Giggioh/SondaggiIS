@@ -21,7 +21,7 @@ module.exports = {
 
     argomento:{
       model:'Argomento',
-      //required:true
+      required:true
     },
 
     chiuso:{
