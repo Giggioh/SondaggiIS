@@ -19,7 +19,7 @@ module.exports = {
       columnType:'date', //si usa string con columnType invece
     },
 
-    argomento:{
+    argomenti:{
       collection:'Argomento',
       via:'sondaggio'
     },
