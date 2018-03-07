@@ -17,6 +17,10 @@ module.exports = {
     domande:{
       collection:'Domanda',
       via:'argomento'
+    },
+
+    sondaggio:{
+      model:'Sondaggio',
     }
   }
 };

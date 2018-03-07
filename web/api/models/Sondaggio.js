@@ -19,9 +19,9 @@ module.exports = {
       columnType:'date', //si usa string con columnType invece
     },
 
-    argomento:{
-      model:'Argomento',
-      required:true
+    argomenti:{
+      collection:'Argomento',
+      via:'sondaggio'
     },
 
     chiuso:{
