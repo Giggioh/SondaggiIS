@@ -9,6 +9,7 @@ module.exports = {
 
   'new' :function (req, res) {
     res.view();
+    res.valueOf();
   },
 
   create: function (req, res, next) {
