@@ -20,7 +20,7 @@ module.exports = {
   },
 
   'sArgomento': function (req,res,next) {
-    Sondaggio.findone(req.param('id')).exec(function (err, sondaggio) {
+    Sondaggio.findOne(req.param('id')).exec(function (err, sondaggio) {
       if(err) next(err);
       res.view({Sondaggio:sondaggio});
     });

@@ -20,8 +20,8 @@ module.exports = {
     },
 
     argomento:{
-      model:'Argomento',
-      required:true
+      collection:'Argomento',
+      via:'sondaggio'
     },
 
     chiuso:{
