@@ -9,13 +9,12 @@ module.exports = {
 
   attributes: {
 
-    domanda:{
-      model:'Domanda',
-      required:true
-    },
-
     testo:{
       type:'string',
+    },
+
+    domanda:{
+      model:'Domanda',
       required:true
     }
   }

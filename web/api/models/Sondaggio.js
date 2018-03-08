@@ -31,12 +31,10 @@ module.exports = {
 
     bozza:{
       type:'boolean',
-      //required: true
     },
 
     cancellato:{
       type:'boolean',
-      //required: true
     },
 
     amministratoreContenuti:{
