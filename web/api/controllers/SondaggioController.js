@@ -22,7 +22,7 @@ module.exports = {
   'sondaggioCreato':function (req,res,next) {
     Sondaggio.findOne(req.param('id')).exec(function (err,sondaggio) {
       if(err) next(err);
-      res.view({sondaggio:sondaggio});
+      res.view({Sondaggio:sondaggio});
     });
   }
 };
