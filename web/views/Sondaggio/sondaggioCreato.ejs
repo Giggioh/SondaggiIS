@@ -1,6 +1,7 @@
 <h1>sondaggio creato</h1>
 nome:<%=Sondaggio.nome%><br>
-<form action="/Argomento/new" method="post">
+<form action="/Argomento/create" method="post">
   <input type="hidden" value="<%=Sondaggio.id%>" name="sondaggio">
-  <input type="submit" value="inserisci argomento">
+  argomento:<input name="nome"><br>
+  <input type="submit" value="inserisci">
 </form>

@@ -6,5 +6,17 @@
  */
 
 module.exports = {
-};
 
+  create:function (req,res,next) {
+    Domanda.create({testo:req.param('testo'), argomento: req.param('argomento')}).exec(function (err,dom) {
+      if(err) next(err);
+      Risposta.create({testo: req.param('R1'), domanda: dom.id}).exec(function (err) {
+        if (err) next(err);
+      });
+      Risposta.create({testo: req.param('R2'), domanda: dom.id}).exec(function (err) {
+        if (err) next(err);
+      });
+      res.redirect("/Argomento/argomentoCreato?id="+req.param('argomento'));
+    });
+  }
+};

@@ -1,0 +1,8 @@
+<h1>Argomento <%=Argomento.nome%> inserito per il sondaggio <%=Argomento.sondaggio.nome%></h1>
+<form action="/Domanda/create" method="post">
+  <input type="hidden" name="argomento" value="<%=Argomento.id%>">
+  domanda:<textarea name="testo"></textarea><br>
+  1)<input name="R1"><br>
+  2)<input name="R2"><br>
+  <input type="submit" value="inserisci">
+</form>

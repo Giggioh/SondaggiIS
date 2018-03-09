@@ -7,17 +7,17 @@
 
 module.exports = {
 
-  'new':function (req,res) {
-    Sondaggio.findOne(req.param('sondaggio')).exec(function (err,sondaggio) {
-      if(err) next(err);
-      res.view({Sondaggio:sondaggio});
-    });
-  },
-
   create:function (req,res,next) {
     Argomento.create(req.allParams()).exec(function (err,argomento) {
       if(err) next(err);
-      res.json(argomento);
+      res.redirect('/Argomento/argomentoCreato?id='+argomento.id);
+    });
+  },
+
+  'argomentoCreato':function (req,res,next) {
+    Argomento.findOne(req.param('id')).exec(function (err,argomento) {
+      if(err) next(err);
+      res.view({Argomento:argomento});
     });
   }
 };
