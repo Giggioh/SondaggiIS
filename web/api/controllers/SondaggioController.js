@@ -24,6 +24,30 @@ module.exports = {
       if(err) next(err);
       res.view({Sondaggio:sondaggio});
     });
+  },
+
+  'riepilogo':function (req,res,next) {
+    Sondaggio.findOne(req.param('idRiepSondaggio')).exec(function (err, sond)
+    {
+      if(err) next(err);
+      Argomento.find({where:{sondaggio:sond.id}, sort : id}).populate('sondaggio').exec(function (err,argomenti)
+      {
+        if(err) next(err);
+        forEach(argomenti, function (arg)
+        {
+          Domanda.find({where:{argomento:arg.id}, sort:id}).populate('argomento').exec(function (err,domande) {
+            if(err) next(err);
+            forEach(domande, function (dom)
+            {
+              Risposta.find({where: {domanda: dom.id}, sort: id}).populate('domanda').exec(function (err, risposte) {
+                if (err) next(err);
+                res.view({Sondaggio: sond});
+              });
+            });
+          });
+        });
+      });
+    });
   }
 };
 

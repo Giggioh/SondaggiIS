@@ -1,0 +1,22 @@
+<h1>Riepilogo</h1>
+Nome del sondaggio: <%=Sondaggio.nome%>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Argomento</th>
+    <th>Domande</th>
+  </tr>
+  <%forEach(Sondaggio.argomenti, function (argomento) {%>
+    <tr>
+      <td><%argomento.id%></td>
+      <td><%argomento.nome%></td>
+      <%forEach(argomento.domande, function (domanda) {%>
+        <td><%domanda.testo%></td>
+        <%forEach(domanda.risposte, function (risposta) {%>
+          <tr><%risposta.testo%></tr>
+        <%})%>
+      <%})%>
+    </tr>
+  <%})%>
+</table>
+<a href="/Sondaggio/new"><button type="button">chiudi</button></a>
