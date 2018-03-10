@@ -15,7 +15,7 @@ module.exports = {
   },
 
   'argomentoCreato':function (req,res,next) {
-    Argomento.findOne(req.param('id')).exec(function (err,argomento) {
+    Argomento.findOne(req.param('id')).populate('sondaggio').exec(function (err,argomento) {
       if(err) next(err);
       res.view({Argomento:argomento});
     });
