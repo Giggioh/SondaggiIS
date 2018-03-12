@@ -1,0 +1,11 @@
+<h1>Login</h1>
+
+<% if (Error==true) {  %>
+  <b>Username o password errati.</b>
+<% } %>
+
+<form action="/Account/login" method="POST">
+  Username: <input type="text" name="username"/><br>
+  Password: <input type="password" name="password"/><br>
+  <input type="submit" content="Login"/>
+</form>

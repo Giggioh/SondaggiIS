@@ -1,7 +1,3 @@
-/**
- * THIS FILE WAS ADDED AUTOMATICALLY by the Sails 1.0 app migration tool.
- * The original file was backed up as `config/globals-old.js.txt`
- */
 
  module.exports.globals = {
 
@@ -11,6 +7,6 @@
 
    models: true,
 
-   sails: true
+   sails: true,
 
  };

@@ -63,6 +63,6 @@ module.exports.models = {
     default: 'g/fYwEbGd/Vt2PlcuthxgE/D9lbe4goUvWuZ/2WTk/I='
   },
 
-  migrate: 'alter'
+  migrate: process.env.NODE_ENV=="development"?"alter":"safe"
 
 };

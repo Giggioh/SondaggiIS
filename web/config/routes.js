@@ -34,16 +34,26 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it   *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+  // AccountController
+  'GET /Account/': 'AccountController.index',
+  'GET /Account/login': 'AccountController.login',
+  'POST /Account/login': 'AccountController.login',
+  'GET /Account/alreadyLoggedIn': 'AccountController.alreadyLoggedIn',
 
+  // UtenteController
+  'GET /Utente/': 'UtenteController.index',
+  'GET /Utente/new': 'UtenteController.new',
+  'POST /Utente/create': 'UtenteController.create',
+
+  // AmministratoreContenutiController
+  'GET /AmministratoreContenuti/': 'AmministratoreContenutiController.index',
+  'GET /AmministratoreContenuti/new': 'AmministratoreContenutiController.new',
+  'POST /AmministratoreContenuti/create': 'AmministratoreContenutiController.create',
+
+  // AmministratoreSistemaController
+  'GET /AmministratoreSistema/': 'AmministratoreSistemaController.index',
+  'GET /AmministratoreSistema/new': 'AmministratoreSistemaController.new',
+  'POST /AmministratoreSistema/create': 'AmministratoreSistemaController.create',
 };

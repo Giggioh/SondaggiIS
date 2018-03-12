@@ -7,27 +7,29 @@
 
 module.exports = {
 
-
   index: function(req,res) {
+    if (GlobalService.isProd()) return res.forbidden();
+
     Utente.find().populate("account").exec(function(err,utenti) {
       res.json(utenti);
     });
   },
 
   'new': function(req,res) {
+    //TODO: ci si può arrivare solo se non si è loggati
     res.view();
   },
 
   create: function(req,res,next) {
+    //TODO: ci si può arrivare solo se non si è loggati
     //dati login
-    username=req.param("username");
-    password=req.param("password");
-    shajs=require("sha.js");
-    hash=new shajs.sha256().update(username+":"+password).digest("hex");
+    var username=req.param("username");
+    var password=req.param("password");
+    var hash=Account.computeHash(username,password);
 
     //dati utente
-    nome=req.param("nome");
-    cognome=req.param("cognome");
+    var nome=req.param("nome");
+    var cognome=req.param("cognome");
 
     sails.getDatastore().transaction(function(db,proceed) {
       Account.create({username: username, hash: hash}).usingConnection(db).exec(function(err,account) {
@@ -42,7 +44,7 @@ module.exports = {
     }).exec(function(err) {
       if (err) next(err);
 
-      res.redirect("/utente");
+      res.redirect("/Utente"); //TODO: schermata successo registrazione
     });
   }
 
