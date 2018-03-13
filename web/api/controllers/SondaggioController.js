@@ -8,11 +8,13 @@
 module.exports = {
 
   'new' :function (req, res) {
+    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     res.view();
   },
 
   create: function (req, res, next) {
     var nome = req.param("nome");
+    if(nome==null || !Account.isAmministratoreContenuti(req)) return res.forbidden();
     Sondaggio.create({nome: nome, bozza:true}).exec(function (err, sondaggio) { //TODO: deve essere direttamente linkato all'utente loggato
       if(err) next(err);
       res.redirect('/Sondaggio/sondaggioCreato?id='+sondaggio.id);
