@@ -7,7 +7,14 @@
 
 module.exports = {
 
-  'new' :function (req, res) {
+  index:function (req,res) {
+    if (GlobalService.isProd()) return res.forbidden();
+    Sondaggio.find().populate("amministratoreContenuti").populate("argomenti").populate("risposteDate").exec(function (err, sond) {
+      res.json(sond);
+    });
+  },
+
+  'new':function (req, res) {
     if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     res.view();
   },
@@ -15,7 +22,8 @@ module.exports = {
   create: function (req, res, next) {
     var nome = req.param("nome");
     if(nome==null || !Account.isAmministratoreContenuti(req)) return res.forbidden();
-    Sondaggio.create({nome: nome, bozza:true}).exec(function (err, sondaggio) { //TODO: deve essere direttamente linkato all'utente loggato
+    var acc = Account.getCurrentUser(req);
+    Sondaggio.create({nome: nome, bozza:true, amministratoreContenuti: acc.amministratoreContenuti.get(0).id}).exec(function (err, sondaggio) {
       if(err) next(err);
       res.redirect('/Sondaggio/sondaggioCreato?id='+sondaggio.id);
     });
@@ -28,28 +36,34 @@ module.exports = {
     });
   },
 
+  //TODO:COME IMPLEMENTARE POPULATE ANNIDATI? IL PROBLEMA STA NEL POPOLARE GLI ARGOMENTI E LE RELATIVE DOMANDE
   'riepilogo':function (req,res,next) {
-    Sondaggio.findOne(req.param('idRiepSondaggio')).exec(function (err, sond)
-    {
-      if(err) next(err);
-      Argomento.find({where:{sondaggio:sond.id}, sort : id}).populate('sondaggio').exec(function (err,argomenti)
-      {
+    var domande = [];
+    var risposte = [];
+    Sondaggio.findOne(req.param('idRiepSondaggio')).populate("argomenti")
+                                                   .populate("amministratoreContenuti").exec(function (err,sond) {
         if(err) next(err);
-        forEach(argomenti, function (arg)
-        {
-          Domanda.find({where:{argomento:arg.id}, sort:id}).populate('argomento').exec(function (err,domande) {
-            if(err) next(err);
-            forEach(domande, function (dom)
-            {
-              Risposta.find({where: {domanda: dom.id}, sort: id}).populate('domanda').exec(function (err, risposte) {
-                if (err) next(err);
-                res.view({Sondaggio: sond});
-              });
-            });
-          });
-        });
-      });
+        forEach(sond.argomenti, function (arg) {
+         forEach(arg.domande, function (dom) {
+           domande.add(dom).populate('argomento');
+           forEach(dom.risposte, function (ris) {
+             risposte.add((ris)).populate('domanda');
+           })
+         })
+        })
+      res.view({Sondaggio:sond, Domande:domande, Risposte:risposte});
     });
   }
-};
+
+    /**var domande =[];
+    Sondaggio.findOne(req.param('idRiepSondaggio')).populate("argomenti")
+                                                   .populate("amministratoreContenuti").exec(function (err,sond) {
+      if(err) next(err);
+      forEach(sond.argomenti, function (args) {
+         domande = Domanda.find({where: {argomento: args.id}}).populate("risposte");
+      })
+      if(domande == null) return res.send("domande non trovate");
+      res.view({Sondaggio:sond , Domanda:domande});
+    });*/
+}
 

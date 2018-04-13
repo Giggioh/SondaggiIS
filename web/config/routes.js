@@ -56,4 +56,18 @@ module.exports.routes = {
   'GET /AmministratoreSistema/': 'AmministratoreSistemaController.index',
   'GET /AmministratoreSistema/new': 'AmministratoreSistemaController.new',
   'POST /AmministratoreSistema/create': 'AmministratoreSistemaController.create',
+
+  //SondaggioController
+  'GET /Sondaggio/':'SondaggioController.index',
+  'GET /Sondaggio/new':'SondaggioController.new',
+  'POST /Sondaggio/create':'SondaggioController.create',
+
+  //ArgomentoController
+  'GET /Argomento/':'ArgomentoController.index',
+  'GET /Argomento/new':'ArgomentoController.new',
+  'POST /Argomento/create':'ArgomentoController.create',
+
+  //DomandaController
+  'GET /Domanda/':'DomandaController.index',
+  'POST /Domanda/crate':'DomandaController.create',
 };

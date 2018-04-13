@@ -8,6 +8,7 @@
 module.exports = {
 
   create:function (req,res,next) {
+    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     Domanda.create({testo:req.param('testo'), argomento: req.param('argomento')}).exec(function (err,dom) {
       if(err) next(err);
       Risposta.create({testo: req.param('R1'), domanda: dom.id}).exec(function (err) {
