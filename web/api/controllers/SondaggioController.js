@@ -54,16 +54,5 @@ module.exports = {
       res.view({Sondaggio:sond, Domande:domande, Risposte:risposte});
     });
   }
-
-    /**var domande =[];
-    Sondaggio.findOne(req.param('idRiepSondaggio')).populate("argomenti")
-                                                   .populate("amministratoreContenuti").exec(function (err,sond) {
-      if(err) next(err);
-      forEach(sond.argomenti, function (args) {
-         domande = Domanda.find({where: {argomento: args.id}}).populate("risposte");
-      })
-      if(domande == null) return res.send("domande non trovate");
-      res.view({Sondaggio:sond , Domanda:domande});
-    });*/
 }
 

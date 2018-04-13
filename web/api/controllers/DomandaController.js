@@ -19,5 +19,11 @@ module.exports = {
       });
       res.redirect("/Argomento/argomentoCreato?id="+req.param('argomento'));
     });
-  }
+  },
+
+  'modificaDomanda':function (req,res,next) {
+    Domanda.update({id:req.param('domModificata')}).set({testo:req.param('txtDomanda')}).exec(function (arg, err) {
+      if(err) next(err);
+      res.redirect("/Sondaggio/riepilogo?id="+req.param('idSond'));
+    });
 };

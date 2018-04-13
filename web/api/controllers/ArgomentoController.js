@@ -27,6 +27,13 @@ module.exports = {
       if(err) next(err);
       res.view({Argomento:argomento});
     });
+  },
+
+  'modificaArgomento':function (req,res,next) {
+    Argomento.update({id:req.param('argModificato')}).set({testo:req.param('txtArgomento')}).exec(function (arg, err) {
+      if(err) next(err);
+      res.redirect("/Sondaggio/riepilogo?id="+req.param('idSond'));
+    });
   }
 };
 
