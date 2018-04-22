@@ -63,6 +63,7 @@ module.exports.routes = {
   'GET /Sondaggio/sondaggioCreato':'SondaggioController.sondaggioCreato',
   'POST /Sondaggio/create':'SondaggioController.create',
   'POST /Sondaggio/riepilogo':'SondaggioController.riepilogo',
+  'GET /Sondaggio/riepilogo':'SondaggioController.riepilogo',
 
   //ArgomentoController
   'GET /Argomento/':'ArgomentoController.index',

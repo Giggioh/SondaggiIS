@@ -5,7 +5,7 @@ nome:<%=Sondaggio.nome%><br>
   argomento:<input name="nome"><br>
   <input type="submit" value="aggiungi">
 </form>
-<form action="/Sondaggio/riepilogo" method="post">
-  <input type="hidden" name="idRiepSondaggio" value="<%=Sondaggio.id%>">
+<form action="/Sondaggio/riepilogo" method="get">
+  <input type="hidden" name="id" value="<%=Sondaggio.id%>">
   <input type="submit" value="finito">
 </form>

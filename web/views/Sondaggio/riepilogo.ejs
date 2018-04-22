@@ -6,7 +6,7 @@ Nome del sondaggio: <%=sondaggio.nome%><br>
     <th>Argomento</th>
     <th>Domande</th>
   </tr>
-  <%forEach(sondaggio.argomenti, function (arg) {%>
+  <%sondaggio.argomenti.forEach(function (arg) {%>
     <tr>
       <td><%arg.id%></td>
       <form action="/Argomento/modificaArgomento" method="post">

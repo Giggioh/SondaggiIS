@@ -40,7 +40,7 @@ module.exports = {
   'riepilogo':function (req,res,next) {
     var domande = [];
     var risposte = [];
-    Sondaggio.findOne(req.param('idRiepSondaggio')).populate('argomenti').exec(function (err,sond) {
+    Sondaggio.findOne(req.param('id')).populate('argomenti').exec(function (err,sond) {
         //if(err) next(err);
         /**Argomento.forEach(sond.argomenti, function (arg) {
          Domanda.forEach(arg.domande, function (dom) {
