@@ -1,17 +1,17 @@
 <h1>Riepilogo</h1>
-Nome del sondaggio: <%=Sondaggio.nome%>
+Nome del sondaggio: <%=sondaggio.nome%><br>
 <table>
   <tr>
     <th>ID</th>
     <th>Argomento</th>
     <th>Domande</th>
   </tr>
-  <%forEach(Sondaggio.argomenti, function (arg) {%>
+  <%forEach(sondaggio.argomenti, function (arg) {%>
     <tr>
       <td><%arg.id%></td>
       <form action="/Argomento/modificaArgomento" method="post">
         <input type="hidden" value="<%=arg.id%>" name="argModificato">
-        <input type="hidden" value="<%Sondaggio.id%>" name="idSond">
+        <input type="hidden" value="<%sondaggio.id%>" name="idSond">
         <td><input value="<%arg.nome%>" name="txtArgomento"></td>
         <input type="submit" value="salva midifica">
       </form>
@@ -19,7 +19,7 @@ Nome del sondaggio: <%=Sondaggio.nome%>
         <%if(dom.argomento == arg.id){%>
           <form action="/Domanda/modficaDomanda" method="post">
             <input type="hidden" value="<%=dom.id%>" name="domModificata">
-            <input type="hidden" value="<%Sondaggio.id%>" name="idSond">
+            <input type="hidden" value="<%sondaggio.id%>" name="idSond">
             <td><input value="<%dom.testo%>" name="txtDomanda"></td>
             <input type="submit" value="salva modifica">
           </form>
@@ -27,7 +27,7 @@ Nome del sondaggio: <%=Sondaggio.nome%>
             <%if(ris.domanda == dom.id){%>
               <form action="/Risposta/modificaRisposta" method="post">
                 <input type="hidden" value="<%=ris.id%>" name="risModificata">
-                <input type="hidden" value="<%Sondaggio.id%>" name="idSond">
+                <input type="hidden" value="<%sondaggio.id%>" name="idSond">
                 <td><input value="<%ris.testo%>" name="txtRisposta"></td>
                 <input type="submit" value="salva modifica">
               </form>
@@ -37,5 +37,5 @@ Nome del sondaggio: <%=Sondaggio.nome%>
       <%})%>
     </tr>
   <%})%>
-</table>
+</table><br>
 <a href="/Sondaggio/new"><button type="button">chiudi</button></a>

@@ -8,7 +8,7 @@
 module.exports = {
 
   create:function (req,res,next) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
+    //if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     Domanda.create({testo:req.param('testo'), argomento: req.param('argomento')}).exec(function (err,dom) {
       if(err) next(err);
       Risposta.create({testo: req.param('R1'), domanda: dom.id}).exec(function (err) {
@@ -22,8 +22,9 @@ module.exports = {
   },
 
   'modificaDomanda':function (req,res,next) {
-    Domanda.update({id:req.param('domModificata')}).set({testo:req.param('txtDomanda')}).exec(function (arg, err) {
-      if(err) next(err);
-      res.redirect("/Sondaggio/riepilogo?id="+req.param('idSond'));
+    Domanda.update({id: req.param('domModificata')}).set({testo: req.param('txtDomanda')}).exec(function (arg, err) {
+      if (err) next(err);
+      res.redirect("/Sondaggio/riepilogo?id=" + req.param('idSond'));
     });
-};
+  }
+}

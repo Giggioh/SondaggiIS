@@ -15,7 +15,7 @@ module.exports = {
   },
 
   create:function (req,res,next) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
+    //if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     Argomento.create(req.allParams()).exec(function (err,argomento) {
       if(err) next(err);
       res.redirect('/Argomento/argomentoCreato?id='+argomento.id);
