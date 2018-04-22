@@ -62,7 +62,6 @@ module.exports.routes = {
   'GET /Sondaggio/new':'SondaggioController.new',
   'GET /Sondaggio/sondaggioCreato':'SondaggioController.sondaggioCreato',
   'POST /Sondaggio/create':'SondaggioController.create',
-  'POST /Sondaggio/riepilogo':'SondaggioController.riepilogo',
   'GET /Sondaggio/riepilogo':'SondaggioController.riepilogo',
 
   //ArgomentoController
@@ -72,5 +71,7 @@ module.exports.routes = {
   'POST /Argomento/create':'ArgomentoController.create',
 
   //Solo funzionale alla creazione della domanda e risposta, no view
-  'POST /Domanda/create':'Domanda.create'
+  'POST /Domanda/create':'Domanda.create',
+
+  'POST /Argomento/modificaArgomento':'Argomento.modificaArgomento'
 };

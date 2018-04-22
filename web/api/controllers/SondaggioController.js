@@ -15,7 +15,7 @@ module.exports = {
   },
 
   'new':function (req, res) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
+    //if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     res.view();
   },
 
