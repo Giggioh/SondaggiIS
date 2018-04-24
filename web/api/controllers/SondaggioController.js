@@ -66,7 +66,7 @@ module.exports = {
       res.view({list: list});
     });
   },
-
+  //TODO: non fa nulla, fixalo
   pubblicaSondaggio:function (req,res,next) {
     if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     Sondaggio.update({id:req.param('id')}).set({bozza:false}).exec(function (sond, err) {

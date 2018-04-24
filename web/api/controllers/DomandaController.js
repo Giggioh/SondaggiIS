@@ -21,6 +21,7 @@ module.exports = {
     });
   },
 
+  //TODO: fixa errore 404
   modificaDomanda:function (req,res,next) {
     Domanda.update({id: req.param('domModificata')}).set({testo: req.param('txtDomanda')}).exec(function (arg, err) {
       if (err) next(err);
