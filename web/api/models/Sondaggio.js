@@ -52,23 +52,40 @@ module.exports = {
     }
   },
 
-  getById: function(id,cb) {
-    Sondaggio.findOne({id:id}).populate('argomenti').exec(async function (err, sond) {
+  findPop: function(query,cb) {
+    Sondaggio.find(query).populateAll().exec(async function (err, sondaggi) {
+      if (sondaggi == null) cb(err, null);
+
+      var sondNuovi = [];
+      for (let sond of sondaggi) {
+        sondNuovi.push(await Sondaggio.populateOne(sond));
+      }
+
+      cb(null,sondNuovi);
+    });
+  },
+
+  findOnePop: function(query,cb) {
+    Sondaggio.findOne(query).populateAll().exec(async function (err, sond) {
       if (sond == null) cb(err,null);
 
-      var argNuovi = [];
-      for (let arg of sond.argomenti) {
-        var dd=null;
-        await Domanda.find({argomento: arg.id}).populate('risposte').then(function (domande) {
-          dd = domande;
-        });
-        arg.domande = dd;
-        argNuovi.push(arg);
-      }
-      sond.argomenti = argNuovi;
+      sond=await Sondaggio.populateOne(sond);
       cb(null,sond);
     });
   },
+
+  populateOne: async function(sond) {
+    var argNuovi = [];
+    for (let arg of sond.argomenti) {
+      arg.domande = await Domanda.find({argomento: arg.id}).populateAll();
+      argNuovi.push(arg);
+    }
+    sond.argomenti = argNuovi;
+
+    sond.amministratoreContenuti.account=await Account.findOne({id: sond.amministratoreContenuti.account}).populateAll();
+
+    return sond;
+  }
 
 };
 
