@@ -14,25 +14,21 @@ Nome del sondaggio: <%=sondaggio.nome%><br>
         <input value="<%=arg.nome%>" name="txtArgomento">
         <input type="submit" value="salva modifica">
       </form>
-      <%Domande.forEach(function (dom) {%>
-        <%if(dom.argomento == arg.id){%>
+      <%arg.domande.forEach(function (dom) {%>
           <form action="/Domanda/modficaDomanda" method="post">
             <input type="hidden" value="<%=dom.id%>" name="domModificata">
             <input type="hidden" value="<%=sondaggio.id%>" name="idSond">
             <input value="<%=dom.testo%>" name="txtDomanda">
             <input type="submit" value="salva modifica">
           </form>
-          <%Risposte.forEach(function (ris) {%>
-            <%if(ris.domanda == dom.id){%>
+          <%dom.risposte.forEach(function (ris) {%>
               <form action="/Risposta/modificaRisposta" method="post">
                 <input type="hidden" value="<%=ris.id%>" name="risModificata">
                 <input type="hidden" value="<%=sondaggio.id%>" name="idSond">
                 <input value="<%=ris.testo%>" name="txtRisposta">
                 <input type="submit" value="salva modifica">
               </form>
-            <%}%>
           <%})%>
-        <%}%>
       <%})%>
     </tr>
   <%})%>

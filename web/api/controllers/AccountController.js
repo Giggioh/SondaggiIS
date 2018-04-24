@@ -35,6 +35,13 @@ module.exports = {
     }
   },
 
+  logout: function(req,res,next) {
+    if (!Account.isLoggedIn(req)) return res.redirect("/Account/login");
+
+    Account.setCurrentUser(req,null);
+    res.redirect("/");
+  },
+
   alreadyLoggedIn: function(req,res,next) {
     //se non sono loggato, non voglio visualizzare questa pagina
     if (!Account.isLoggedIn(req)) return res.redirect("Account/login");

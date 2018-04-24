@@ -40,6 +40,7 @@ module.exports.routes = {
   'GET /Account/': 'AccountController.index',
   'GET /Account/login': 'AccountController.login',
   'POST /Account/login': 'AccountController.login',
+  'GET /Account/logout': 'AccountController.logout',
   'GET /Account/alreadyLoggedIn': 'AccountController.alreadyLoggedIn',
 
   // UtenteController
@@ -63,6 +64,8 @@ module.exports.routes = {
   'GET /Sondaggio/sondaggioCreato':'SondaggioController.sondaggioCreato',
   'POST /Sondaggio/create':'SondaggioController.create',
   'GET /Sondaggio/riepilogo':'SondaggioController.riepilogo',
+  'GET /Sondaggio/listaUtente':'SondaggioController.listaUtente',
+  'GET /Sondaggio/listaAC':'SondaggioController.listaAC',
 
   //ArgomentoController
   'GET /Argomento/':'ArgomentoController.index',

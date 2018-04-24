@@ -1,0 +1,16 @@
+<h1>Lista sondaggi creati</h1>
+
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Data creazione</th>
+    <th>Pubblicato</th>
+  </tr>
+
+  <%list.forEach(function (sondaggio) {%>
+  <tr>
+    <td><%=sondaggio.nome%></td>
+    <td><%=sondaggio.createdAt%></td>
+    <td><%=sondaggio.bozza?"No":"Si"%></td>
+  </tr>
+  <%});%>
