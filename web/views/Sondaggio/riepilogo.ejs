@@ -2,35 +2,49 @@
 Nome del sondaggio: <%=sondaggio.nome%><br>
 <table>
   <tr>
-    <th>ID</th>
     <th>Argomento</th>
     <th>Domande</th>
+    <th>Risposte</th>
   </tr>
-  <%sondaggio.argomenti.forEach(function (arg) {%>
+  <tbody>
     <tr>
-      <form action="/Argomento/modificaArgomento" method="post">
-        <input type="hidden" value="<%=arg.id%>" name="argModificato">
-        <input type="hidden" value="<%=sondaggio.id%>" name="idSond">
-        <input value="<%=arg.nome%>" name="txtArgomento">
-        <input type="submit" value="salva modifica">
-      </form>
-      <%arg.domande.forEach(function (dom) {%>
-          <form action="/Domanda/modficaDomanda" method="post">
-            <input type="hidden" value="<%=dom.id%>" name="domModificata">
-            <input type="hidden" value="<%=sondaggio.id%>" name="idSond">
-            <input value="<%=dom.testo%>" name="txtDomanda">
-            <input type="submit" value="salva modifica">
-          </form>
-          <%dom.risposte.forEach(function (ris) {%>
+      <td>
+        <%sondaggio.argomenti.forEach(function (arg) {%>
+        <form action="/Argomento/modificaArgomento" method="post">
+          <input type="hidden" value="<%=arg.id%>" name="argModificato">
+          <input type="hidden" value="<%=sondaggio.id%>" name="idSond">
+          <input value="<%=arg.nome%>" name="txtArgomento"><br>
+          <input type="submit" value="salva modifica">
+        </form><br>
+        <%})%>
+      </td>
+      <td>
+        <%sondaggio.argomenti.forEach(function (arg1) {%>
+          <%arg1.domande.forEach(function (dom) {%>
+            <form action="/Domanda/modficaDomanda" method="post">
+              <input type="hidden" value="<%=dom.id%>" name="domModificata">
+              <input type="hidden" value="<%=sondaggio.id%>" name="idSond">
+              <input value="<%=dom.testo%>" name="txtDomanda">
+              <input type="submit" value="salva modifica">
+            </form>
+          <%})%>
+        <%})%>
+      </td>
+      <td>
+        <%sondaggio.argomenti.forEach(function (arg1) {%>
+          <%arg1.domande.forEach(function (dom) {%>
+            <%dom.risposte.forEach(function (ris) {%>
               <form action="/Risposta/modificaRisposta" method="post">
                 <input type="hidden" value="<%=ris.id%>" name="risModificata">
                 <input type="hidden" value="<%=sondaggio.id%>" name="idSond">
                 <input value="<%=ris.testo%>" name="txtRisposta">
                 <input type="submit" value="salva modifica">
               </form>
+            <%})%>
           <%})%>
-      <%})%>
+        <%})%>
+      </td>
     </tr>
-  <%})%>
+  </tbody>
 </table><br>
 <a href="/Sondaggio/new"><button type="button">chiudi</button></a>

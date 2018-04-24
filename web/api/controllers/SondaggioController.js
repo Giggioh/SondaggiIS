@@ -24,7 +24,7 @@ module.exports = {
     //if(nome==null || !Account.isAmministratoreContenuti(req)) return res.forbidden();
     var acc = Account.getCurrentUser(req);
     Sondaggio.create({nome: nome, bozza:true, amministratoreContenuti: acc.amministratoreContenuti[0].id}).exec(function (err, sondaggio) {
-      if(err) next(err);
+      //if(err) next(err);
       res.redirect('/Sondaggio/sondaggioCreato?id='+sondaggio.id);
     });
   },
@@ -36,7 +36,6 @@ module.exports = {
     });
   },
 
-  //TODO:COME IMPLEMENTARE POPULATE ANNIDATI? IL PROBLEMA STA NEL POPOLARE GLI ARGOMENTI E LE RELATIVE DOMANDE
   riepilogo:function (req,res,next) {
     Sondaggio.findOnePop({id:req.param('id')},function(err,sond) {
       if (err) next(err);

@@ -75,6 +75,7 @@ module.exports.routes = {
 
   //Solo funzionale alla creazione della domanda e risposta, no view
   'POST /Domanda/create':'Domanda.create',
-
-  'POST /Argomento/modificaArgomento':'Argomento.modificaArgomento'
+  'POST /Argomento/modificaArgomento':'Argomento.modificaArgomento',
+  'POST /Domanda/modificaDomanda':'Domanda.modificaDomanda',
+  'POST /Risposta/modificaRisposta':'Risposta.modificaRisposta'
 };
