@@ -63,9 +63,16 @@ module.exports = {
     //TODO: possibilità di filtrarli tramite parametri
     Sondaggio.findPop({amministratoreContenuti: acc.amministratoreContenuti[0].id},function(err,list) { //TODO: filtra via le bozze
       if (list == null) next(err);
-
       res.view({list: list});
     });
+  },
+
+  pubblicaSondaggio:function (req,res,next) {
+    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
+    Sondaggio.update({id:req.param('id')}).set({bozza:false}).exec(function (sond, err) {
+      if(err) next(err);
+      res.redirect("/Sondaggio/listaAC");
+    })
   }
 }
 

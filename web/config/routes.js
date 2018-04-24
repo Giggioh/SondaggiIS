@@ -73,9 +73,10 @@ module.exports.routes = {
   'GET /Argomento/argomentoCreato':'ArgomentoController.argomentoCreato',
   'POST /Argomento/create':'ArgomentoController.create',
 
-  //Solo funzionale alla creazione della domanda e risposta, no view
+  //Solo funzionale, no view
   'POST /Domanda/create':'Domanda.create',
-  'POST /Argomento/modificaArgomento':'Argomento.modificaArgomento',
-  'POST /Domanda/modificaDomanda':'Domanda.modificaDomanda',
-  'POST /Risposta/modificaRisposta':'Risposta.modificaRisposta'
+  'POST /Argomento/modificaArgomento':'ArgomentoController.modificaArgomento',
+  'POST /Domanda/modificaDomanda':'DomandaController.modificaDomanda',
+  'POST /Risposta/modificaRisposta':'RispostaController.modificaRisposta',
+  'POST /Sondaggio/pubblicaSondaggio':'SondaggioController.pubblicaSondaggio'
 };

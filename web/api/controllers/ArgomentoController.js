@@ -31,7 +31,7 @@ module.exports = {
 
   'modificaArgomento':function (req,res,next) {
     Argomento.update({id:req.param('argModificato')}).set({nome:req.param('txtArgomento')}).exec(function (arg, err) {
-      //if(err) next(err);
+      if(err) next(err);
       res.redirect("/Sondaggio/riepilogo?id="+req.param('idSond'));
     });
   }

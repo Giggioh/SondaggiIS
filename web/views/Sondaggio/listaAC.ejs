@@ -6,6 +6,7 @@
     <th>Data creazione</th>
     <th>Pubblicato</th>
     <th></th>
+    <th></th>
   </tr>
 
   <%list.forEach(function (sondaggio) {%>
@@ -14,6 +15,12 @@
     <td><%=sondaggio.createdAt%></td>
     <td><%=sondaggio.bozza?"No":"Si"%></td>
     <td><a href="/Sondaggio/riepilogo?id=<%=sondaggio.id%>"><button type="button">modifica</button></a> </td>
+    <td>
+      <form action="/Sondaggio/pubblicaSondaggio" method="post">
+        <input type="hidden" value="<%=sondaggio.id%>" name="id">
+        <input type="button" value="pubblica">
+      </form>
+    </td>
   </tr>
   <%});%>
 </table><br>
