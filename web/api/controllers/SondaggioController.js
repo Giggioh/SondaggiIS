@@ -25,7 +25,7 @@ module.exports = {
     if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     var acc = Account.getCurrentUser(req);
     Sondaggio.create({nome: nome, bozza:true, amministratoreContenuti: acc.amministratoreContenuti[0].id}).exec(function (err, sondaggio) {
-      //if(err) next(err);
+      if(err) next(err);
       res.redirect('/Sondaggio/sondaggioCreato?id='+sondaggio.id);
     });
   },

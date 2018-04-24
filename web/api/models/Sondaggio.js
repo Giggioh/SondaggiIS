@@ -39,7 +39,6 @@ module.exports = {
 
     amministratoreContenuti:{
       model:'AmministratoreContenuti',
-      unique: true,
     },
 
     risposteDate:{
