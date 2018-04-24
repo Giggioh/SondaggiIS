@@ -21,7 +21,8 @@ module.exports = {
 
   create: function (req, res, next) {
     var nome = req.param("nome");
-    //if(nome==null || !Account.isAmministratoreContenuti(req)) return res.forbidden();
+    if(nome == null) res.redirect('/Sondaggio/new');
+    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
     var acc = Account.getCurrentUser(req);
     Sondaggio.create({nome: nome, bozza:true, amministratoreContenuti: acc.amministratoreContenuti[0].id}).exec(function (err, sondaggio) {
       //if(err) next(err);

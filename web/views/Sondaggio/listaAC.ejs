@@ -5,6 +5,7 @@
     <th>Nome</th>
     <th>Data creazione</th>
     <th>Pubblicato</th>
+    <th></th>
   </tr>
 
   <%list.forEach(function (sondaggio) {%>
@@ -12,5 +13,8 @@
     <td><%=sondaggio.nome%></td>
     <td><%=sondaggio.createdAt%></td>
     <td><%=sondaggio.bozza?"No":"Si"%></td>
+    <td><a href="/Sondaggio/riepilogo?id=<%=sondaggio.id%>"><button type="button">modifica</button></a> </td>
   </tr>
   <%});%>
+</table><br>
+<a href="/Sondaggio/new"><button type="button">Nuovo sondaggio</button></a>
