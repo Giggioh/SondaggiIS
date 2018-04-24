@@ -26,6 +26,7 @@ module.exports = {
       //tento il login
       Account.login(req,username,password,function(err,account) {
         if (err) return res.view({Error: true});
+        if(Account.isAmministratoreContenuti(req)) res.redirect('/Sondaggio/listaAC'); //TODO:dovremo aggiungere l'id dello specifico AC
         res.redirect("/"); //torniamo alla homepage dopo aver effettuato il login!
       });
 
