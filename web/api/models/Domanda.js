@@ -23,6 +23,11 @@ module.exports = {
     risposte:{
       collection:'Risposta',
       via:'domanda'
+    },
+
+    risposteDate:{
+      collection:'RispostaData',
+      via:'domanda'
     }
   }
 };

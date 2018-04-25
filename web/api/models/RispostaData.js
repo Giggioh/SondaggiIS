@@ -9,6 +9,10 @@ module.exports = {
 
   attributes: {
 
+    testo:{
+      type:'string'
+    },
+
     dataCompilazione:{
       type:'ref', //date non è supportato da sails 1.0
       columnType:'date', //quindi type diventa string e columnType diventa date e si ottiene lo stesso risultato
@@ -24,6 +28,10 @@ module.exports = {
     sondaggio:{
       model:'Sondaggio'
     },
+
+    domanda:{
+      model:'Domanda'
+    }
   }
 };
 

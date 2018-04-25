@@ -1,15 +1,24 @@
-<h1>Lista sondaggi da compilare</h1>
+<h1>Questionari compilabili</h1>
 
 <table>
   <tr>
     <th>Nome</th>
     <th>Autore</th>
+    <th>id</th>
+    <th></th>
   </tr>
 
 <%list.forEach(function (sondaggio) {%>
   <tr>
     <td><%=sondaggio.nome%></td>
     <td><%=sondaggio.amministratoreContenuti.account.username%></td>
+    <td><%=sondaggio.id%></td>
+    <td>
+      <form action="/Sondaggio/compilazione" method="post">
+        <input type="hidden" name="idSond" value="<%=sondaggio.id%>">
+        <input type="submit" value="compila">
+      </form>
+    </td>
   </tr>
 <%});%>
 </table>

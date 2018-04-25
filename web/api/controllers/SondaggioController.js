@@ -73,6 +73,13 @@ module.exports = {
       if(err) next(err);
       res.redirect("/Sondaggio/listaAC");
     })
-  }
+  },
+
+  compilazione:function (req,res,next) {
+    Sondaggio.findOnePop({id:req.param('idSond')},function (err, sond) {
+      if(err) next(err);
+      res.view({sondaggio:sond});
+    })
+  },
 }
 
