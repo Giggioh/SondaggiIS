@@ -44,7 +44,7 @@ module.exports = {
     }).exec(function(err) {
       if (err) next(err);
 
-      res.redirect("/Utente"); //TODO: schermata successo registrazione
+      res.redirect("/Utente");
     });
   }
 

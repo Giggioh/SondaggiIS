@@ -1,41 +1,20 @@
 <h1><%=sondaggio.nome%></h1>
-<%var num = 0%>
-<%sondaggio.argomenti.forEach(function(arg) {%>
-  <div>
-    Argomento:<%=arg.nome%><br>
-    <%arg.domande.forEach(function(dom){%>
-      <label><%=dom.testo%></label><br>
-      <%dom.risposte.forEach(function(ris){%>
-        <input type="radio" name="risposta<%=+num%>" value="<%=ris.testo%>" onclick="salvaRisposta(this.value,dom.id,<%sondaggio.id%>)"><%=ris.testo%><br>
-      <%})%><br>
-    <%num = num+1%>
-    <%})%>
-  </div>
-<%})%>
-<input type="button" value="concludi">
 
-<script>
-  function salvaRisposta(txt, idDomanda, idSondaggio){
-    var controllo = check(txt,idDomanda,idSondaggio,next);
-    if(controllo ==0)
-    {
-      RispostaData.update({domanda:idDomanda, sondaggio:idSondaggio}).set({testo:txt}).exec(function (err) {
-        if(err) next(err);
-        return;
-      })
-    }
-    RispostaData.create({testo: txt, domanda:idDomanda, sondaggio: idSondaggio}).exec(function (err) {
-      if (err) next(err);
-    })
-  }
-</script>
+<% var numA = 0; var numR = 0; %>
 
-<script>
-  function check(txt,idDomanda, idSondaggio) {
-    RispostaData.finOne({domanda:idDomanda}).exec(function (err, risp) {
-      if(err) next(err);
-      if(risp.sondaggio == idSondaggio && risp.testo != txt) return 0
-      return 1;
-    })
-  }
-</script>
+<form action="/Sondaggio/salvaRisposte" method="POST">
+  <input type="hidden" name="id" value="<%=sondaggio.id%>"/>
+  <%sondaggio.argomenti.forEach(function(arg) {%>
+    <div>
+      Argomento:<%=arg.nome%><br>
+      <%arg.domande.forEach(function(dom){%>
+        <label><%=dom.testo%></label><br>
+        <%dom.risposte.forEach(function(ris){%>
+          <input type="radio" name="risposta<%=+numA%>_<%=+numR%>" value="<%=ris.id%>"/><%=ris.testo%><br>
+        <%});%><br>
+      <%numR++;%>
+      <%});%>
+    </div>
+  <% numA++; numR=0; });%>
+  <input type="submit" value="Concludi"/>
+</form>

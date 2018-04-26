@@ -41,11 +41,6 @@ module.exports = {
       model:'AmministratoreContenuti',
     },
 
-    risposteDate:{
-      collection:'RispostaData',
-      via:'sondaggio',
-    },
-
     statistica: {
       model: 'Statistica',
     }
