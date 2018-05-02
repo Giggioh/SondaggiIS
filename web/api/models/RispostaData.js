@@ -34,13 +34,6 @@ module.exports = {
       columnType:'datetime', //quindi type diventa string e columnType diventa date e si ottiene lo stesso risultato
       required:true
     },
-
-    //TODO: a che ci serve avere sia data che tempo, se il datetime include entrambi?
-    /*tempoCompilazione:{
-      type:'ref',
-      columnType:'datetime', //come sopra
-      required:true
-    },*/
   },
 
   beforeCreate:function(values,cb) {

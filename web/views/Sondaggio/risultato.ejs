@@ -1,0 +1,11 @@
+<h1>Risultati per <%=sondaggio.nome%></h1>
+<%sondaggio.argomenti.forEach(function(arg){%>
+  Argomento:<label><%=arg.nome%></label><br>
+  <%arg.domande.forEach(function(dom){%>
+    <label><%=dom.testo%></label><br>
+    <%dom.risposte.forEach(function (ris){%>
+      <label><%=ris.testo%></label><label>  qui ci va la percentuale di persone che hanno dato questa risposta :)</label><br>
+    <%})%>
+  <%})%>
+<%})%>
+<a href="/Sondaggio/listaAC"><button type="button">chiudi</button></a>

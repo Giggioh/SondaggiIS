@@ -75,7 +75,6 @@ module.exports = {
     });
   },
 
-  //TODO: non fa nulla, fixalo
   pubblicaSondaggio:function (req,res,next) {
     if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
 
@@ -127,7 +126,7 @@ module.exports = {
               domanda: risposte[rr].domanda,
               risposta: risposte[rr].risposta,
               utente: acc.utente[0].id,
-              dataCompilazione: new Date()
+              dataCompilazione: new Date(),
             }).usingConnection(db);
           } catch(err) { return proceed(err); }
         }
@@ -138,5 +137,13 @@ module.exports = {
       });
     });
   },
+
+  risultato:function (req,res,next) {
+    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
+    Sondaggio.findOnePop({id:req.param('id')},function (err,sond) {
+      if(err) next(err);
+      res.view({sondaggio:sond});
+    });
+  }
 }
 
