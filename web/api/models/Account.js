@@ -52,13 +52,14 @@ module.exports = {
       if (err) return callback(err);
       if (account==null) return callback(new Error("Utente non valido."));
 
-      Account.setCurrentUser(req,account);
+      delete account.hash; //non lo vogliamo nel payload!
+      var jwt=jwtAuthService.issueToken(account);
 
-      callback(null,account);
+      callback(null,{account:account, token:jwt});
     });
 
   },
-  isLoggedIn: function(req) {
+  /*isLoggedIn: function(req) {
     return req.session.account!=null;
   },
   getCurrentUser: function(req) {
@@ -67,7 +68,7 @@ module.exports = {
   },
   setCurrentUser: function(req,account) {
     req.session.account=account;
-  },
+  },*/
 
 
   //metodi rapidi per accesso a info sull'account loggato

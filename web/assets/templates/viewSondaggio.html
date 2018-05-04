@@ -1,0 +1,36 @@
+<div class="container" ng-controller="ListaSondaggiCtrl">
+  <div class="row">
+    <h1>{{sondaggio.nome}}</h1>
+  </div>
+
+  <div class="row" ng-repeat="argomento in sondaggio.argomenti">
+    <div class="col">
+      <div class="row align-items-center">
+        {{argomento.nome}}
+      </div>
+      <div class="row">
+        <div class="container">
+          <div class="row" ng-repeat="domanda in argomento.domande">
+            <div class="col-auto">
+              {{domanda.testo}}
+            </div>
+            <div class="col">
+              <div class="container">
+                <div class="row" ng-repeat="risposta in domanda.risposte">
+                  <input ng-disabled="!canEdit" class="col-auto" id="{{risposta.id+'.'+domanda.id}}" class="form-control" type="radio" value="{{risposta.id}}" ng-model="formData[domanda.id]">
+                  <label class="col" for="{{risposta.id+'.'+domanda.id}}">{{risposta.testo}}</label>
+                </div>
+              </div>
+              <br>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  <br>
+  <button ng-show="canEdit" class="form-control" type="submit" ng-click="submit()">Invia risposte</button>
+</div>
+

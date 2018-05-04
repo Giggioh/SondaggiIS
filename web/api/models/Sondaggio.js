@@ -35,6 +35,7 @@ module.exports = {
 
     cancellato:{
       type:'boolean',
+      //default:false TODO
     },
 
     amministratoreContenuti:{
@@ -68,6 +69,14 @@ module.exports = {
     });
   },
 
+  findOnePopSync: async function(query) {
+    var sond=await Sondaggio.findOne(query).populateAll();
+    if (sond == null) return null;
+
+    var sond2=await Sondaggio.populateOne(sond);
+    return sond2;
+  },
+
   populateOne: async function(sond) {
     var argNuovi = [];
     for (let arg of sond.argomenti) {
@@ -79,6 +88,33 @@ module.exports = {
     sond.amministratoreContenuti.account=await Account.findOne({id: sond.amministratoreContenuti.account}).populateAll();
 
     return sond;
+  },
+
+  emptyData: async function(id) {
+    var sond=await Sondaggio.findOnePopSync({id:id});
+    if (!sond.bozza) throw new Error("Impossibile modificare un sondaggio pubblicato.");
+
+    var res=await sails.getDatastore().transaction(async function(db,proceed) {
+      var idArgomenti=[];
+      for (var arg of sond.argomenti) {
+        idArgomenti.push(arg.id);
+
+        var idDomande=[];
+        for (var dom of arg.domande) {
+          idDomande.push(dom.id);
+
+          var idRisposte=[];
+          for (var risp of dom.risposte) {
+            idRisposte.push(risp.id);
+          }
+          await Risposta.destroy({id:idRisposte}).usingConnection(db);
+        }
+        await Domanda.destroy({id:idDomande}).usingConnection(db);
+      }
+      await Argomento.destroy({id:idArgomenti}).usingConnection(db);
+      proceed(undefined,true);
+    });
+    return res;
   }
 
 };

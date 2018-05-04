@@ -7,14 +7,6 @@
 
 module.exports = {
 
-  index: function(req,res) {
-    if (GlobalService.isProd()) return res.forbidden();
-
-    AmministratoreSistema.find().populate("account").exec(function(err,amministratoriSistema) {
-      res.json(amministratoriSistema);
-    });
-  },
-
   'new': function(req,res) {
     //TODO: qui ci si può arrivare solo se si è amministratori di sistema!
     res.view();

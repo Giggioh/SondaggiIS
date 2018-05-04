@@ -7,14 +7,6 @@
 
 module.exports = {
 
-  index: function(req,res) {
-    if (GlobalService.isProd()) return res.forbidden();
-
-    Utente.find().populate("account").exec(function(err,utenti) {
-      res.json(utenti);
-    });
-  },
-
   'new': function(req,res) {
     //TODO: ci si può arrivare solo se non si è loggati
     res.view();

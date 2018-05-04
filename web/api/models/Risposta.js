@@ -11,6 +11,7 @@ module.exports = {
 
     testo:{
       type:'string',
+      required: true
     },
 
     domanda:{

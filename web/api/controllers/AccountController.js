@@ -7,15 +7,7 @@
 
 module.exports = {
 
-  index: function(req,res) {
-    if (GlobalService.isProd()) return res.forbidden();
-
-    Account.find().populate().exec(function(err,account) {
-      res.json(account);
-    });
-  },
-
-  login: function(req,res,next) {
+  /*login: function(req,res,next) {
     //se sono già autenticato, vado al controller corrispondente
     if (Account.isLoggedIn(req)) return res.redirect("/Account/alreadyLoggedIn");
 
@@ -35,9 +27,25 @@ module.exports = {
       //mostro la view per l'inserimento dei dati
       res.view();
     }
+  },*/
+  login: function(req,res,next) {
+    //se sono già autenticato, vado al controller corrispondente
+    //if (Account.isLoggedIn(req)) return res.badRequest("Already logged in.");
+
+    //verifico se ho già inserito dei dati
+    var username=req.param("username");
+    var password=req.param("password");
+
+    if (username!=null && password!=null) {
+      //tento il login
+      Account.login(req,username,password,function(err,jwt) {
+        if (err) return res.badRequest("Username/password errati.");
+        return res.json(jwt);
+      });
+    } else return res.badRequest("Username o password mancante.");
   },
 
-  logout: function(req,res,next) {
+  /*logout: function(req,res,next) {
     if (!Account.isLoggedIn(req)) return res.redirect("/Account/login");
 
     Account.setCurrentUser(req,null);
@@ -49,7 +57,7 @@ module.exports = {
     if (!Account.isLoggedIn(req)) return res.redirect("Account/login");
 
     res.view(); //non mi serve di passare l'account alla view perchè sta nella session
-  }
+  }*/
 
 };
 

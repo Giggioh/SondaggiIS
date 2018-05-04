@@ -1,0 +1,17 @@
+<div class="container" align="center" ng-controller="LoginCtrl">
+  <h1>Login</h1>
+
+  <div class="row">
+    <b>{{error}}</b>
+    <form>
+      <div class="form-group">
+        <input type="text" class="form-control input-lg text-center" placeholder="Username" ng-model="formData.username">
+        <br>
+        <input type="password" class="form-control input-lg text-center" placeholder="Password" ng-model="formData.password">
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="login()">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+

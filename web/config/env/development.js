@@ -21,4 +21,6 @@ module.exports = {
   //   connection: 'someMongodbServer'
   // }
 
+  TOKEN_SECRET: '123456',
+
 };

@@ -33,53 +33,29 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'Home/index'
+    view: '/'
   },
 
   // AccountController
-  'GET /Account/': 'AccountController.index',
-  'GET /Account/login': 'AccountController.login',
-  'POST /Account/login': 'AccountController.login',
-  'GET /Account/logout': 'AccountController.logout',
-  'GET /Account/alreadyLoggedIn': 'AccountController.alreadyLoggedIn',
+  'POST /account/login': 'AccountController.login', //X
 
   // UtenteController
-  'GET /Utente/': 'UtenteController.index',
   'GET /Utente/new': 'UtenteController.new',
   'POST /Utente/create': 'UtenteController.create',
 
   // AmministratoreContenutiController
-  'GET /AmministratoreContenuti/': 'AmministratoreContenutiController.index',
   'GET /AmministratoreContenuti/new': 'AmministratoreContenutiController.new',
   'POST /AmministratoreContenuti/create': 'AmministratoreContenutiController.create',
 
   // AmministratoreSistemaController
-  'GET /AmministratoreSistema/': 'AmministratoreSistemaController.index',
   'GET /AmministratoreSistema/new': 'AmministratoreSistemaController.new',
   'POST /AmministratoreSistema/create': 'AmministratoreSistemaController.create',
 
   //SondaggioController
-  'GET /Sondaggio/':'SondaggioController.index',
-  'GET /Sondaggio/new':'SondaggioController.new',
-  'GET /Sondaggio/sondaggioCreato':'SondaggioController.sondaggioCreato',
-  'POST /Sondaggio/create':'SondaggioController.create',
-  'GET /Sondaggio/riepilogo':'SondaggioController.riepilogo',
-  'GET /Sondaggio/listaUtente':'SondaggioController.listaUtente',
-  'GET /Sondaggio/listaAC':'SondaggioController.listaAC',
-  'POST /Sondaggio/compilazione':'SondaggioController.compilazione',
-  'POST /Sondaggio/salvaRisposte':'SondaggioController.salvaRisposte',
-  'POST /Sondaggio/risultato':'SondaggioController.risultato',
-
-  //ArgomentoController
-  'GET /Argomento/':'ArgomentoController.index',
-  'GET /Argomento/new':'ArgomentoController.new',
-  'GET /Argomento/argomentoCreato':'ArgomentoController.argomentoCreato',
-  'POST /Argomento/create':'ArgomentoController.create',
-
-  //Solo funzionale, no view
-  'POST /Domanda/create':'Domanda.create',
-  'POST /Argomento/modificaArgomento':'ArgomentoController.modificaArgomento',
-  'POST /Domanda/modificaDomanda':'DomandaController.modificaDomanda',
-  'POST /Risposta/modificaRisposta':'RispostaController.modificaRisposta',
-  'POST /Sondaggio/pubblicaSondaggio':'SondaggioController.pubblicaSondaggio'
+  'POST /sondaggio/listaUtente':'SondaggioController.listaUtente', //X
+  'POST /sondaggio/listaAC':'SondaggioController.listaAC', //X
+  'POST /sondaggio/get':'SondaggioController.get', //X
+  'POST /sondaggio/compila':'SondaggioController.compila', //X
+  'POST /sondaggio/pubblica':'SondaggioController.pubblica', //X
+  'POST /sondaggio/store':'SondaggioController.store', //X
 };

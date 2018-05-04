@@ -35,4 +35,6 @@ module.exports = {
   //   level: "silent"
   // }
 
+  TOKEN_SECRET: '123456',
+
 };

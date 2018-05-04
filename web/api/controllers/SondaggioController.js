@@ -7,143 +7,143 @@
 
 module.exports = {
 
-  index:function (req,res) {
-    if (GlobalService.isProd()) return res.forbidden();
-    Sondaggio.find().populate("amministratoreContenuti").populate("argomenti").populate("risposteDate").exec(function (err, sond) {
-      res.json(sond);
-    });
-  },
-
-  'new':function (req, res) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
-    res.view();
-  },
-
-  create: function (req, res, next) {
-    var nome = req.param("nome");
-    if(nome == null) res.redirect('/Sondaggio/new');
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
-    var acc = Account.getCurrentUser(req);
-    Sondaggio.create({nome: nome, bozza:true, amministratoreContenuti: acc.amministratoreContenuti[0].id}).exec(function (err, sondaggio) {
-      if(err) next(err);
-      res.redirect('/Sondaggio/sondaggioCreato?id='+sondaggio.id);
-    });
-  },
-
-  sondaggioCreato:function (req,res,next) {
-    Sondaggio.findOne(req.param('id')).exec(function (err,sondaggio) {
-      if(err) next(err);
-      res.view({Sondaggio:sondaggio});
-    });
-  },
-
-  riepilogo:function (req,res,next) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
-
-    Sondaggio.findOnePop({id:req.param('id')},function(err,sond) {
-      if (err) next(err);
-      res.view({sondaggio: sond});
-    });
-  },
-
-  listaUtente:function(req,res,next) {
-    if (!Account.isUtente(req)) return res.forbidden(); //TODO: filtra solo quelli per cui è eligible
-    var acc = Account.getCurrentUser(req);
+  listaUtente: function (req, res, next) {
+    var acc = req.token; //pesco account dal token
     //TODO: possibilità di filtrarli tramite parametri
-    RispostaData.findPop({utente:acc.utente[0].id},function(err,risposteUtente) {
+    //TODO: filtra solo quelli per cui è eligible
+    RispostaData.findPop({utente: acc.utente[0].id}, function (err, risposteUtente) {
       var listaSondaggiCompletati = [];
       for (let ru of risposteUtente) {
         if (!listaSondaggiCompletati.includes(ru.domanda.argomento.sondaggio.id))
           listaSondaggiCompletati.push(ru.domanda.argomento.sondaggio.id);
       }
 
-      Sondaggio.findPop({bozza:false, id: {'!=':listaSondaggiCompletati}}, function (err, sondaggi) {
+      Sondaggio.findPop({bozza: false, id: {'!=': listaSondaggiCompletati}}, function (err, sondaggi) {
         if (sondaggi == null) next(err);
-        res.view({list:sondaggi});
+        res.json(sondaggi);
       });
     });
   },
 
-  listaAC:function(req,res,next) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
-    var acc = Account.getCurrentUser(req);
-
+  listaAC: function (req, res, next) {
+    var acc = req.token;
     //TODO: possibilità di filtrarli tramite parametri
-    Sondaggio.findPop({amministratoreContenuti: acc.amministratoreContenuti[0].id},function(err,list) { //TODO: filtra via le bozze
+    Sondaggio.findPop({amministratoreContenuti: acc.amministratoreContenuti[0].id}, function (err, list) { //TODO: filtra via le bozze
       if (list == null) next(err);
-      res.view({list: list});
+      res.json(list);
     });
   },
 
-  pubblicaSondaggio:function (req,res,next) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
-
-    Sondaggio.update({id:req.param('id')}).set({bozza:false,dataPubblicazione:new Date()}).exec(function (err, sond) {
-      if(err) next(err);
-      res.redirect("/Sondaggio/listaAC");
+  get: function (req, res, next) {
+    Sondaggio.findOnePop({id: req.param('id')}, function (err, sond) {
+      if (err) next(err);
+      res.json(sond);
     });
   },
 
-  compilazione:function (req,res,next) {
-    if(!Account.isUtente(req)) return res.forbidden();
+  compila: function (req, res, next) {
+    var acc = req.token;
 
-    Sondaggio.findOnePop({id:req.param('id')},function (err, sond) {
-      if(err) next(err);
-      res.view({sondaggio:sond});
-    });
-  },
+    Sondaggio.findOnePop({id: req.param('id')}, function (err, sond) {
+      if (err) next(err);
+      var risposte = req.param('risposte');
 
-  salvaRisposte:function (req,res,next) {
-    if(!Account.isUtente(req)) return res.forbidden();
-    var acc = Account.getCurrentUser(req);
-
-    Sondaggio.findOnePop({id:req.param('id')},function (err, sond) {
-      if(err) next(err);
-      //Organizzo i parametri di risposte date
-      var risposte=[];
-      for(var a=0;a<sond.argomenti.length;a++) {
-        for(var d=0;d<sond.argomenti[a].domande.length;d++) {
-          var risp=req.param("risposta"+a+"_"+d);
-          if (!risp) next(new Error('Risposta non presente.'));
-
-          //Confronto che l'id di risposta che abbiamo sia giusto per la domanda in questione
-          var rispostaValida=false;
-          console.log(risp);
-          for(var r=0;r<sond.argomenti[a].domande[d].risposte.length;r++) {
-            console.log(sond.argomenti[a].domande[d].risposte[r].id);
-            if (sond.argomenti[a].domande[d].risposte[r].id==risp) rispostaValida=true;
+      //per sicurezza verifico che i dati ricevuti dal client siano accettabili
+      for(var pair in risposte) {
+        var rispostaValida=false;
+        for(var a=0;a<sond.argomenti.length;a++) {
+          for(var d=0;d<sond.argomenti[a].domande.length;d++) {
+            if (sond.argomenti[a].domande[d].id==parseInt(pair)) {
+              for(var r=0;r<sond.argomenti[a].domande[d].risposte.length;r++) {
+                if (sond.argomenti[a].domande[d].risposte[r].id == parseInt(risposte[pair])) rispostaValida = true;
+              }
+            }
           }
-          if (!rispostaValida) next(new Error('Risposta non valida.'));
-
-          risposte.push({domanda:sond.argomenti[a].domande[d].id,risposta:parseInt(risp)});
         }
+        if (!rispostaValida) return res.badRequest("Risposte non valide.");
       }
 
-      sails.getDatastore().transaction(async function(db,proceed) {
-        for(var rr=0;rr<risposte.length;rr++) {
+      sails.getDatastore().transaction(async function (db, proceed) {
+        for (var rr in risposte) {
           try {
             await RispostaData.create({
-              domanda: risposte[rr].domanda,
-              risposta: risposte[rr].risposta,
+              domanda: parseInt(rr),
+              risposta: parseInt(risposte[rr]),
               utente: acc.utente[0].id,
               dataCompilazione: new Date(),
             }).usingConnection(db);
-          } catch(err) { return proceed(err); }
+          } catch (err) {
+            return proceed(err);
+          }
         }
         return proceed();
-      }).exec(function(err) {
+      }).exec(function (err) {
         if (err) next(err);
-        res.redirect("/Sondaggio/listaUtente"); //TODO: maybe schermata successo compilazione?
+        return res.ok();
       });
     });
   },
 
-  risultato:function (req,res,next) {
-    if(!Account.isAmministratoreContenuti(req)) return res.forbidden();
-    Sondaggio.findOnePop({id:req.param('id')},function (err,sond) {
-      if(err) next(err);
-      res.view({sondaggio:sond});
+  pubblica: function (req, res, next) {
+    Sondaggio.update({id: req.param('id')}).set({
+      bozza: false,
+      dataPubblicazione: new Date()
+    }).exec(function (err, sond) {
+      if (err) next(err);
+      res.ok();
     });
-  }
-}
+
+  },
+
+  store: function (req, res, next) {
+    var data=req.allParams();
+    if (data.nome == null) res.badRequest('Nome sondaggio non specificato.');
+
+    var acc = req.token;
+    var sondaggioCreato={};
+    sails.getDatastore().transaction(async function(db,proceed) {
+      if (data.id) {
+        if (!await Sondaggio.emptyData(data.id))
+          return res.serverError();//questo si occupa anche di verificare che il nostro sondaggio da modificare non sia pubblicato
+        await Sondaggio.update(data.id).set({
+          nome: data.nome,
+          bozza: data.bozza, //TODO: evitare che si possa revertire a true (già fatto con emptyData?)
+          dataPubblicazione: data.bozza ? null : new Date()
+        }).usingConnection(db);
+        sondaggioCreato=await Sondaggio.findOnePopSync(data.id); //non pulitissimo, ma funziona
+      } else {
+        sondaggioCreato = await Sondaggio.create({
+          nome: data.nome,
+          bozza: data.bozza,
+          dataPubblicazione: data.bozza ? null : new Date(),
+          amministratoreContenuti: acc.amministratoreContenuti[0].id
+        }).usingConnection(db);
+      }
+      for(var arg of data.argomenti) {
+        var argCreato=await Argomento.create({
+          nome: arg.nome,
+          sondaggio: sondaggioCreato.id
+        }).usingConnection(db);
+        for(var dom of arg.domande) {
+          var domCreata=await Domanda.create({
+            testo: dom.testo,
+            argomento: argCreato.id
+          }).usingConnection(db);
+          for(var risp of dom.risposte) {
+            await Risposta.create({
+              testo: risp.testo,
+              domanda: domCreata.id
+            }).usingConnection(db);
+          }
+        }
+      }
+
+      return proceed();
+    }).exec(function (err) {
+      if (err) return res.serverError();
+      return res.json({id:sondaggioCreato.id})
+    });
+  },
+
+};
 

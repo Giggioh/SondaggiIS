@@ -26,6 +26,21 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
+  AccountController: {
+    login: true,
+  },
+
+  SondaggioController: {
+    listaUtente: ['tokenAuth','isUtente'],
+    compila: ['tokenAuth','isUtente'],
+
+    listaAC: ['tokenAuth','isAC'],
+    pubblica: ['tokenAuth','isAC','isProprietarioAC'],
+    store: ['tokenAuth','isAC','isProprietarioAC'],
+
+    get: 'tokenAuth',
+  },
+
   // '*': true,
 
   /***************************************************************************
