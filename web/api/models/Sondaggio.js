@@ -85,6 +85,26 @@ module.exports = {
 
     return sond;
   },
+  populateRisposte: async function(sond) {
+    for (let arg of sond.argomenti) {
+      for (let dom of arg.domande) {
+        for (let risp of dom.risposte) {
+          risp.risposteDate=await RispostaData.find({risposta:risp.id}).populateAll();
+        }
+      }
+    }
+    return sond;
+  },
+  populateStatistiche: async function(sond) {
+    for (let arg of sond.argomenti) {
+      for (let dom of arg.domande) {
+        for (let risp of dom.risposte) {
+          risp.statistiche=await Statistica.find({risposta:risp.id}).populateAll();
+        }
+      }
+    }
+    return sond;
+  },
 
   emptyData: async function(id) {
     var sond=await Sondaggio.findOnePopSync({id:id});
@@ -111,6 +131,49 @@ module.exports = {
       proceed(undefined,true);
     });
     return res;
+  },
+
+  calcStats:function(id,cb) {
+    Sondaggio.findOnePop({id:id},async function(err,sond) {
+      if (err) return cb(err);
+      sond=await Sondaggio.populateRisposte(sond);
+
+      var now_ms=new Date().getTime();
+      var year_ms=1000*60*60*24*365;
+
+      for (let arg of sond.argomenti) {
+        for (let dom of arg.domande) {
+          for (let risp of dom.risposte) {
+
+            //qui vengono calcolate le statistiche per ogni risposta
+            var stats = {
+              totali:{tipo: 'risposte totali', count: risp.risposteDate.length},
+              maggiorenni:{tipo: 'risposte utenti maggiorenni', count: 0},
+            };
+
+            for (let rd of risp.risposteDate) {
+              var data_nascita_ms=new Date(rd.utente.data_nascita).getTime();
+              if ((now_ms-data_nascita_ms)/year_ms>=18) stats.maggiorenni.count++;
+            }
+
+            for (let st in stats) {
+              await Statistica.createOrUpdate({risposta: risp.id, tipo: stats[st].tipo, count: stats[st].count});
+            }
+
+          }
+        }
+      }
+      return Sondaggio.getStats(id,cb);
+
+    });
+  },
+
+  getStats:function(id,cb) {
+    Sondaggio.findOnePop({id:id},async function(err,sond) {
+      if (err) return cb(err);
+      sond=await Sondaggio.populateStatistiche(sond);
+      return cb(null,sond);
+    });
   }
 
 };

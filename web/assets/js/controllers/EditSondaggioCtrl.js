@@ -40,7 +40,7 @@ SondaggiIS.controller('EditSondaggioCtrl', function($scope, $location,$routePara
 
   $scope.save=function(pubblica) {
     $scope.formData.bozza=!pubblica;
-    console.log($scope.formData);
+    console.log($scope.formData)
     SondaggiService.store($scope.formData).then(function(resp) {
       $location.path('/sondaggio/'+resp.data.id);
     }).catch(function(err) {

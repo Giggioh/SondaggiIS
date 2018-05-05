@@ -22,6 +22,11 @@ module.exports = {
     statistiche: {
       collection:'Statistica',
       via:'risposta'
+    },
+
+    risposteDate:{
+      collection:'RispostaData',
+      via:'risposta'
     }
   }
 };

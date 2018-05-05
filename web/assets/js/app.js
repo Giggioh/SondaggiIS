@@ -25,6 +25,9 @@ SondaggiIS.config(['$routeProvider',
     }).when('/sondaggio/:id', {
       templateUrl: '/templates/viewSondaggio.html',
       controller: 'ViewSondaggioCtrl',
+    }).when('/stats/:id', {
+      templateUrl: '/templates/stats.html',
+      controller: 'StatsCtrl',
     }).when('/error', {
       templateUrl: '/templates/error.html',
     }).otherwise({

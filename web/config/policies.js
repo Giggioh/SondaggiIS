@@ -38,6 +38,9 @@ module.exports.policies = {
     pubblica: ['tokenAuth','isAC','isProprietarioAC'],
     store: ['tokenAuth','isAC','isProprietarioAC'],
 
+    getStats: ['tokenAuth','isAC','isProprietarioAC'],
+    calcStats: ['tokenAuth','isAC','isProprietarioAC'],
+
     get: 'tokenAuth',
   },
 

@@ -66,5 +66,25 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
         .catch(function(err){defer.reject(err);});
       return defer.promise;
     },
+
+    getStats: function(id) {
+      var defer = $q.defer();
+      $http.post('/sondaggio/getStats', {id:id})
+        .then(function(resp){
+          defer.resolve(resp);
+        })
+        .catch(function(err){defer.reject(err);});
+      return defer.promise;
+    },
+
+    calcStats: function(id) {
+      var defer = $q.defer();
+      $http.post('/sondaggio/calcStats', {id:id})
+        .then(function(resp){
+          defer.resolve(resp);
+        })
+        .catch(function(err){defer.reject(err);});
+      return defer.promise;
+    },
   }
 });

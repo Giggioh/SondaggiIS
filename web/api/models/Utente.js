@@ -23,6 +23,12 @@ module.exports = {
     cognome: {
       type: 'string',
       required: true
+    },
+
+    data_nascita: {
+      type:'ref',
+      columnType:'datetime',
+      required:true
     }
 
   }

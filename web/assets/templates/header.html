@@ -1,0 +1,33 @@
+<div class="float-left">
+  <img src="/images/logo_small.jpg"/>
+</div>
+<div class="container mx-auto pb-lg-5" ng-controller="HeaderCtrl">
+
+  <div align="center" class="form-text"><h1>Easy Survey</h1></div>
+  <div class="row float-right" ng-show="!isLogged">
+    <div class="mr-2">
+      <a class="nav-link" href="#!/login">Accedi</a>
+    </div>
+    <div>
+      <a class="nav-link" href="#!/register/utente">Registrati</a>
+    </div>
+  </div>
+
+
+  <div ng-show="isLogged">
+    <div class="row float-left">
+      <div class="w-auto align-self-center">
+        <a class="page-link" href="#!/sondaggi">Lista sondaggi</a>
+      </div>
+    </div>
+    <div class="row float-right">
+      <div class="w-auto align-self-center">
+        Loggato come <b>{{nome}}</b>,
+      </div>
+      <div class="w-25">
+        <a class="nav-link" href="#!/logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+<br>

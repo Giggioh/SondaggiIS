@@ -43,6 +43,14 @@ module.exports = {
 
   //metodi per effettuare/verificare login
   login: function(req,user,pass,callback) {
+
+    //TODO: da togliere finito il testing di base
+    if (user=='admin' && pass=='admin') {
+      var account={username:'admin',utente:[],amministratoreContenuti:[],amministratoreSistema:[{id:0}]}
+      var jwt=jwtAuthService.issueToken(account);
+      return callback(null,{account:account, token:jwt});
+    }
+
     var hash=Account.computeHash(user,pass);
 
     //è importante che sia popolato, perchè quei dati ci servono durante la sessione!
@@ -58,40 +66,6 @@ module.exports = {
       callback(null,{account:account, token:jwt});
     });
 
-  },
-  /*isLoggedIn: function(req) {
-    return req.session.account!=null;
-  },
-  getCurrentUser: function(req) {
-    if (!this.isLoggedIn(req)) return null;
-    return req.session.account;
-  },
-  setCurrentUser: function(req,account) {
-    req.session.account=account;
-  },*/
-
-
-  //metodi rapidi per accesso a info sull'account loggato
-  isUtente: function(req) {
-    if (!Account.isLoggedIn(req)) return false;
-    var acc=Account.getCurrentUser(req);
-
-    return acc.utente.length>0;
-  },
-  isAmministratoreContenuti: function(req) {
-    if (!Account.isLoggedIn(req)) return false;
-    var acc=Account.getCurrentUser(req);
-
-    return acc.amministratoreContenuti.length>0;
-  },
-  isAmministratoreSistema: function(req) {
-    //TODO: solo per fini di testing
-    //return true;
-
-    if (!Account.isLoggedIn(req)) return false;
-    var acc=Account.getCurrentUser(req);
-
-    return acc.amministratoreSistema.length>0;
   },
 };
 

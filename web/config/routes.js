@@ -49,4 +49,7 @@ module.exports.routes = {
   'POST /sondaggio/pubblica':'SondaggioController.pubblica',
   'POST /sondaggio/store':'SondaggioController.store',
 
+  'POST /sondaggio/getStats':'SondaggioController.getStats',
+  'POST /sondaggio/calcStats':'SondaggioController.calcStats',
+
 };

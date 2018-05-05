@@ -20,9 +20,9 @@ SondaggiIS.controller('ViewSondaggioCtrl', function($scope, $location,$routePara
 
   $scope.submit=function() {
     SondaggiService.sendRisposte(sondaggioID,$scope.formData).then(function(resp) {
-      $scope.sondaggio.nome="OK";
+      $location.path('/sondaggi');
     }).catch(function(err) {
-      $scope.sondaggio.nome="ERR";
+      $location.path('/error');
     });
   }
 

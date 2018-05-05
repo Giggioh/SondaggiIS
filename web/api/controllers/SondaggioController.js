@@ -102,46 +102,63 @@ module.exports = {
     var acc = req.token;
     var sondaggioCreato={};
     sails.getDatastore().transaction(async function(db,proceed) {
-      if (data.id) {
-        if (!await Sondaggio.emptyData(data.id))
-          return res.serverError();//questo si occupa anche di verificare che il nostro sondaggio da modificare non sia pubblicato
-        await Sondaggio.update(data.id).set({
-          nome: data.nome,
-          bozza: data.bozza, //TODO: evitare che si possa revertire a true (già fatto con emptyData?)
-          dataPubblicazione: data.bozza ? null : new Date()
-        }).usingConnection(db);
-        sondaggioCreato=await Sondaggio.findOnePopSync(data.id); //non pulitissimo, ma funziona
-      } else {
-        sondaggioCreato = await Sondaggio.create({
-          nome: data.nome,
-          bozza: data.bozza,
-          dataPubblicazione: data.bozza ? null : new Date(),
-          amministratoreContenuti: acc.amministratoreContenuti[0].id
-        }).usingConnection(db);
-      }
-      for(var arg of data.argomenti) {
-        var argCreato=await Argomento.create({
-          nome: arg.nome,
-          sondaggio: sondaggioCreato.id
-        }).usingConnection(db);
-        for(var dom of arg.domande) {
-          var domCreata=await Domanda.create({
-            testo: dom.testo,
-            argomento: argCreato.id
+      try {
+        if (data.id) {
+          if (!await Sondaggio.emptyData(data.id))
+            return proceed(new Error('Non è possibile alterare un sondaggio già pubblicato!'));//questo si occupa anche di verificare che il nostro sondaggio da modificare non sia pubblicato
+          await Sondaggio.update(data.id).set({
+            nome: data.nome,
+            bozza: data.bozza, //TODO: evitare che si possa revertire a true (già fatto con emptyData?)
+            dataPubblicazione: data.bozza ? null : new Date()
           }).usingConnection(db);
-          for(var risp of dom.risposte) {
-            await Risposta.create({
-              testo: risp.testo,
-              domanda: domCreata.id
+          sondaggioCreato = await Sondaggio.findOnePopSync(data.id); //non pulitissimo, ma funziona
+        } else {
+          var sData = {
+            nome: data.nome,
+            bozza: data.bozza,
+            amministratoreContenuti: acc.amministratoreContenuti[0].id
+          };
+          if (!sData.bozza) sData.dataPubblicazione = new Date();
+          sondaggioCreato = await Sondaggio.create(sData).usingConnection(db);
+        }
+        for (let arg of data.argomenti) {
+          var argCreato = await Argomento.create({
+            nome: arg.nome,
+            sondaggio: sondaggioCreato.id
+          }).usingConnection(db);
+          for (let dom of arg.domande) {
+            var domCreata = await Domanda.create({
+              testo: dom.testo,
+              argomento: argCreato.id
             }).usingConnection(db);
+            for (let risp of dom.risposte) {
+              await Risposta.create({
+                testo: risp.testo,
+                domanda: domCreata.id
+              }).usingConnection(db);
+            }
           }
         }
-      }
 
-      return proceed();
+        return proceed();
+      } catch(err) { return proceed(err); }
     }).exec(function (err) {
-      if (err) return res.serverError();
-      return res.json({id:sondaggioCreato.id})
+      if (err) return res.serverError(err);
+      return res.json({id:sondaggioCreato.id});
+    });
+  },
+
+  getStats: function(req,res,next){
+    Sondaggio.getStats(req.param('id'),function(err,stats) {
+      if (err) return res.serverError(err);
+      return res.json(stats);
+    });
+  },
+
+  calcStats: function(req,res,next){
+    Sondaggio.calcStats(req.param('id'),function(err,stats) {
+      if (err) return res.serverError(err);
+      return res.json(stats);
     });
   },
 

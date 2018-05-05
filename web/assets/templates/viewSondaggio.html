@@ -1,3 +1,4 @@
+<div ng-include="'templates/header.html'"/>
 <div class="container" ng-controller="ListaSondaggiCtrl">
   <div class="row">
     <h1>{{sondaggio.nome}}</h1>
@@ -30,7 +31,6 @@
     </div>
     <br>
   </div>
-  <br>
-  <button ng-show="canEdit" class="form-control" type="submit" ng-click="submit()">Invia risposte</button>
+  <button ng-show="canEdit" class="btn btn-primary btn-lg mt-1" type="submit" ng-click="submit()">Invia risposte</button>
 </div>
 

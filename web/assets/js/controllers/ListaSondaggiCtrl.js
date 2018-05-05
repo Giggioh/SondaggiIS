@@ -3,9 +3,7 @@ SondaggiIS.controller('ListaSondaggiCtrl', function($scope, $location, LoginServ
   if (!LoginService.isLoggedIn()) $location.path('/login');
 
   $scope.sondaggi=[];
-  $scope.showModifica=false;
-  $scope.showPubblica=false;
-  $scope.showChiudi=false;
+  $scope.showAC=false;
 
   if (LoginService.isUtente()) {
     SondaggiService.getSondaggiUtente(null).then(function (resp) {
@@ -14,9 +12,7 @@ SondaggiIS.controller('ListaSondaggiCtrl', function($scope, $location, LoginServ
       $location.path('/error');
     });
   } else if (LoginService.isAC()) {
-    $scope.showModifica=true;
-    $scope.showPubblica=true;
-    $scope.showChiudi=true;
+    $scope.showAC=true;
     SondaggiService.getSondaggiAC(null).then(function (resp) {
       $scope.sondaggi = resp.data;
     }).catch(function (err) {
@@ -29,6 +25,9 @@ SondaggiIS.controller('ListaSondaggiCtrl', function($scope, $location, LoginServ
   }
   $scope.modifica=function(sondaggio) {
     $location.path("/edit/"+sondaggio.id);
+  }
+  $scope.stats=function(sondaggio) {
+    $location.path("/stats/"+sondaggio.id);
   }
   $scope.pubblica=function(sondaggio) {
     SondaggiService.pubblica(sondaggio.id).then(function (resp) { //TODO: success stuff
