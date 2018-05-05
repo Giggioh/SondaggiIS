@@ -1,0 +1,19 @@
+<div class="container" align="center" ng-controller="RegisterCtrl">
+  <h1>Registrazione</h1>
+
+  <input class="form-control" type="text" placeholder="Username" name="username" ng-model="formData.account.username"/><br>
+  <input class="form-control"  type="password" placeholder="Password" name="password" ng-model="formData.account.password"/><br>
+
+  <div ng-show="accountType==0">
+    <h2>Dati utente</h2>
+    <input class="form-control"  type="text" placeholder="Nome" name="nome" ng-model="formData.utente.nome"/><br>
+    <input class="form-control"  type="text" placeholder="Cognome" name="cognome" ng-model="formData.utente.cognome"/><br>
+  </div>
+
+
+  <input ng-click="register()" class="form-control"  type="submit" content="Invia"/>
+
+  {{formData}}
+
+</div>
+

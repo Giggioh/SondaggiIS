@@ -32,30 +32,21 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: '/'
-  },
-
   // AccountController
-  'POST /account/login': 'AccountController.login', //X
-
+  'POST /account/login': 'AccountController.login',
   // UtenteController
-  'GET /Utente/new': 'UtenteController.new',
-  'POST /Utente/create': 'UtenteController.create',
-
+  'POST /utente/register': 'UtenteController.register',
   // AmministratoreContenutiController
-  'GET /AmministratoreContenuti/new': 'AmministratoreContenutiController.new',
-  'POST /AmministratoreContenuti/create': 'AmministratoreContenutiController.create',
-
+  'POST /amministratoreContenuti/register': 'AmministratoreContenutiController.register',
   // AmministratoreSistemaController
-  'GET /AmministratoreSistema/new': 'AmministratoreSistemaController.new',
-  'POST /AmministratoreSistema/create': 'AmministratoreSistemaController.create',
+  'POST /amministratoreSistema/register': 'AmministratoreSistemaController.register',
 
   //SondaggioController
-  'POST /sondaggio/listaUtente':'SondaggioController.listaUtente', //X
-  'POST /sondaggio/listaAC':'SondaggioController.listaAC', //X
-  'POST /sondaggio/get':'SondaggioController.get', //X
-  'POST /sondaggio/compila':'SondaggioController.compila', //X
-  'POST /sondaggio/pubblica':'SondaggioController.pubblica', //X
-  'POST /sondaggio/store':'SondaggioController.store', //X
+  'POST /sondaggio/listaUtente':'SondaggioController.listaUtente',
+  'POST /sondaggio/listaAC':'SondaggioController.listaAC',
+  'POST /sondaggio/get':'SondaggioController.get',
+  'POST /sondaggio/compila':'SondaggioController.compila',
+  'POST /sondaggio/pubblica':'SondaggioController.pubblica',
+  'POST /sondaggio/store':'SondaggioController.store',
+
 };

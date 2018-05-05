@@ -9,10 +9,17 @@ module.exports = {
 
   attributes: {
 
-    infoStatistica:{
-      model:'InfoStatistica'
+    risposta:{
+      model:'Risposta',
+      required:true
     },
 
+    tipo:{
+      type:'string',
+      required:true
+    },
+
+    //TODO: implementale
     valida:{
       type:'boolean',
       required:true
@@ -24,10 +31,6 @@ module.exports = {
       required:true
     },
 
-    sondaggi:{
-      collection:'Sondaggio',
-      via:"statistica"
-    }
   }
 };
 

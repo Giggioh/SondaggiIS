@@ -36,8 +36,8 @@ module.exports = {
 
   get: function (req, res, next) {
     Sondaggio.findOnePop({id: req.param('id')}, function (err, sond) {
-      if (err) next(err);
-      res.json(sond);
+      if (err) return res.serverError();
+      return res.json(sond);
     });
   },
 
@@ -89,15 +89,15 @@ module.exports = {
       bozza: false,
       dataPubblicazione: new Date()
     }).exec(function (err, sond) {
-      if (err) next(err);
-      res.ok();
+      if (err) return res.serverError();
+      return res.ok();
     });
 
   },
 
   store: function (req, res, next) {
     var data=req.allParams();
-    if (data.nome == null) res.badRequest('Nome sondaggio non specificato.');
+    if (data.nome == null) return res.badRequest('Nome sondaggio non specificato.');
 
     var acc = req.token;
     var sondaggioCreato={};

@@ -9,7 +9,7 @@ SondaggiIS.controller('LoginCtrl', function($scope, $location, LoginService) {
     LoginService.login($scope.formData).then(function(response) {
       $location.path('/');
     }).catch(function(err) {
-      $scope.error=err.data;
+      alert('Login fallito. ('+err.data+')');
     });
   }
 });

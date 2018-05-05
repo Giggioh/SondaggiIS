@@ -41,6 +41,16 @@ module.exports.policies = {
     get: 'tokenAuth',
   },
 
+  UtenteController: {
+    create: true, //TODO: da limitare a non loggati
+  },
+  AmministratoreContenutiController: {
+    create: ['tokenAuth','isAS'],
+  },
+  AmministratoreSistemaController: {
+    create: ['tokenAuth','isAS'],
+  },
+
   // '*': true,
 
   /***************************************************************************

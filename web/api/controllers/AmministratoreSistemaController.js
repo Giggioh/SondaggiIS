@@ -7,16 +7,11 @@
 
 module.exports = {
 
-  'new': function(req,res) {
-    //TODO: qui ci si può arrivare solo se si è amministratori di sistema!
-    res.view();
-  },
-
-  create: function(req,res,next) {
+  register: function(req,res,next) {
     //TODO: qui ci si può arrivare solo se si è amministratori di sistema!
     //dati login
-    var username=req.param("username");
-    var password=req.param("password");
+    var username=req.param("account").username;
+    var password=req.param("account").password;
     var hash=Account.computeHash(username,password);
 
     sails.getDatastore().transaction(function(db,proceed) {
@@ -30,9 +25,9 @@ module.exports = {
         });
       });
     }).exec(function(err) {
-      if (err) next(err);
+      if (err) res.badRequest();
 
-      res.redirect("/AmministratoreSistema");
+      res.ok();
     });
   }
 

@@ -7,21 +7,16 @@
 
 module.exports = {
 
-  'new': function(req,res) {
-    //TODO: ci si può arrivare solo se non si è loggati
-    res.view();
-  },
-
-  create: function(req,res,next) {
+  register: function(req,res,next) {
     //TODO: ci si può arrivare solo se non si è loggati
     //dati login
-    var username=req.param("username");
-    var password=req.param("password");
+    var username=req.param("account").username;
+    var password=req.param("account").password;
     var hash=Account.computeHash(username,password);
 
     //dati utente
-    var nome=req.param("nome");
-    var cognome=req.param("cognome");
+    var nome=req.param("utente").nome;
+    var cognome=req.param("utente").cognome;
 
     sails.getDatastore().transaction(function(db,proceed) {
       Account.create({username: username, hash: hash}).usingConnection(db).exec(function(err,account) {
@@ -34,9 +29,9 @@ module.exports = {
         });
       });
     }).exec(function(err) {
-      if (err) next(err);
+      if (err) res.badRequest();
 
-      res.redirect("/Utente");
+      res.ok();
     });
   }
 

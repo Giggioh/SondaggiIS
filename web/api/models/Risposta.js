@@ -17,6 +17,11 @@ module.exports = {
     domanda:{
       model:'Domanda',
       required:true
+    },
+
+    statistiche: {
+      collection:'Statistica',
+      via:'risposta'
     }
   }
 };

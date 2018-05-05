@@ -7,20 +7,10 @@
 
 module.exports = {
 
-  'new': function(req,res) {
-    //TODO: lasciamo che sia l'AS a creare AC? o chiunque può creare un account del genere ma deve essere convalidato da un AS?
-    if (!Account.isAmministratoreSistema(req)) return res.forbidden();
-
-    res.view();
-
-  },
-
-  create: function(req,res,next) {
-    if (!Account.isAmministratoreSistema(req)) return res.forbidden();
-
+  register: function(req,res,next) {
     //dati login
-    var username=req.param("username");
-    var password=req.param("password");
+    var username=req.param("account").username;
+    var password=req.param("account").password;
     var hash=Account.computeHash(username,password);
 
     sails.getDatastore().transaction(function(db,proceed) {
@@ -34,9 +24,9 @@ module.exports = {
         });
       });
     }).exec(function(err) {
-      if (err) next(err);
+      if (err) res.badRequest();
 
-      res.redirect("/AmministratoreContenuti");
+      res.ok();
     });
   }
 

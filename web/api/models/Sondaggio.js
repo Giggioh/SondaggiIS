@@ -41,10 +41,6 @@ module.exports = {
     amministratoreContenuti:{
       model:'AmministratoreContenuti',
     },
-
-    statistica: {
-      model: 'Statistica',
-    }
   },
 
   findPop: function(query,cb) {

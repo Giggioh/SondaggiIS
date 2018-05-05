@@ -12,6 +12,34 @@ SondaggiIS.service('LoginService', function($http, $q) {
       return defer.promise;
     },
 
+    registerUtente: function(data) {
+      var defer = $q.defer();
+      $http.post('/utente/register', data)
+        .then(function(resp){
+          defer.resolve(resp);
+        })
+        .catch(function(err){defer.reject(err);});
+      return defer.promise;
+    },
+    registerAC: function(data) {
+      var defer = $q.defer();
+      $http.post('/amministratoreContenuti/register', data)
+        .then(function(resp){
+          defer.resolve(resp);
+        })
+        .catch(function(err){defer.reject(err);});
+      return defer.promise;
+    },
+    registerAS: function(data) {
+      var defer = $q.defer();
+      $http.post('/amministratoreSistema/register', data)
+        .then(function(resp){
+          defer.resolve(resp);
+        })
+        .catch(function(err){defer.reject(err);});
+      return defer.promise;
+    },
+
     saveJWT: function(jwt) {
       localStorage.setItem('jwt_sondaggi',JSON.stringify(jwt));
     },

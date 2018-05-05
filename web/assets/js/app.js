@@ -7,6 +7,9 @@ SondaggiIS.config(['$routeProvider',
     $routeProvider
       .when('/', {
       templateUrl: '/templates/index.html',
+    }).when('/register/:accountType?', {
+      templateUrl: '/templates/register.html',
+      controller: 'RegisterCtrl'
     }).when('/login', {
       templateUrl: '/templates/login.html',
       controller: 'LoginCtrl'
