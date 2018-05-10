@@ -6,10 +6,10 @@ SondaggiIS.controller('ViewSondaggioCtrl', function($scope, $location,$routePara
   $scope.sondaggio={};
   $scope.formData={};
 
-  if (LoginService.isAC()) $scope.canEdit=false;
+  if (LoginService.isAC()) $scope.isAC=true;
   if (LoginService.isUtente()) {
     //TODO: da aggiungere che se ha già compilato il sondaggio, può vedere che risposte ha dato
-    $scope.canEdit=true;
+    $scope.isAC=false;
   }
 
   SondaggiService.getSondaggio(sondaggioID).then(function(resp) {
@@ -24,6 +24,15 @@ SondaggiIS.controller('ViewSondaggioCtrl', function($scope, $location,$routePara
     }).catch(function(err) {
       $location.path('/error');
     });
+  }
+
+  $scope.back=function() {
+    $location.path('/sondaggi');
+  }
+
+  $scope.edit=function() {
+    if ($scope.isAC && $scope.sondaggio.bozza)
+      $location.path('/edit/'+sondaggioID);
   }
 
 });

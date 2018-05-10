@@ -3,7 +3,17 @@ SondaggiIS.service('LoginService', function($http, $q) {
     login: function(user) {
       var defer = $q.defer();
       var t=this;
-      $http.post('/account/login', user)
+      $http.post(server+'/account/login', user)
+        .then(function(resp){
+          defer.resolve(resp);
+          t.saveJWT(resp.data);
+        })
+        .catch(function(err){defer.reject(err);});
+      return defer.promise;
+    },
+    changePass: function(data) {
+      var defer = $q.defer();
+      $http.post(server+'/account/changePass', data)
         .then(function(resp){
           defer.resolve(resp);
           t.saveJWT(resp.data);
@@ -14,7 +24,7 @@ SondaggiIS.service('LoginService', function($http, $q) {
 
     registerUtente: function(data) {
       var defer = $q.defer();
-      $http.post('/utente/register', data)
+      $http.post(server+'/utente/register', data)
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -23,7 +33,7 @@ SondaggiIS.service('LoginService', function($http, $q) {
     },
     registerAC: function(data) {
       var defer = $q.defer();
-      $http.post('/amministratoreContenuti/register', data)
+      $http.post(server+'/amministratoreContenuti/register', data)
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -32,7 +42,7 @@ SondaggiIS.service('LoginService', function($http, $q) {
     },
     registerAS: function(data) {
       var defer = $q.defer();
-      $http.post('/amministratoreSistema/register', data)
+      $http.post(server+'/amministratoreSistema/register', data)
         .then(function(resp){
           defer.resolve(resp);
         })

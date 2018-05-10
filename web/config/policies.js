@@ -28,6 +28,7 @@ module.exports.policies = {
 
   AccountController: {
     login: true,
+    changePass: ['tokenAuth'],
   },
 
   SondaggioController: {
@@ -36,6 +37,7 @@ module.exports.policies = {
 
     listaAC: ['tokenAuth','isAC'],
     pubblica: ['tokenAuth','isAC','isProprietarioAC'],
+    chiudi: ['tokenAuth','isAC','isProprietarioAC'],
     store: ['tokenAuth','isAC','isProprietarioAC'],
 
     getStats: ['tokenAuth','isAC','isProprietarioAC'],

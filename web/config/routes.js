@@ -34,6 +34,7 @@ module.exports.routes = {
 
   // AccountController
   'POST /account/login': 'AccountController.login',
+  'POST /account/changePass': 'AccountController.changePass',
   // UtenteController
   'POST /utente/register': 'UtenteController.register',
   // AmministratoreContenutiController
@@ -47,6 +48,7 @@ module.exports.routes = {
   'POST /sondaggio/get':'SondaggioController.get',
   'POST /sondaggio/compila':'SondaggioController.compila',
   'POST /sondaggio/pubblica':'SondaggioController.pubblica',
+  'POST /sondaggio/chiudi':'SondaggioController.chiudi',
   'POST /sondaggio/store':'SondaggioController.store',
 
   'POST /sondaggio/getStats':'SondaggioController.getStats',

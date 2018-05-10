@@ -13,12 +13,12 @@ module.exports = function(req, res, next) {
     } else {
       return res.json(401, {err: 'Format is Authorization: Bearer [token]'});
     }
-  } else if (req.param('token')) {
-    token = req.param('token');
+  } else if (req.param('jwt')) {
+    token = req.param('jwt');
     // We delete the token from param to not mess with blueprints
     delete req.query.token;
   } else {
-    return res.json(401, {err: 'No Authorization header was found'});
+    return res.json(401, {err: 'No token header was found'});
   }
 
   var t=jwtAuthService.verifyToken(token);

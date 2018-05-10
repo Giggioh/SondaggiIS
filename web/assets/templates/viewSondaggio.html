@@ -18,7 +18,7 @@
             <div class="col">
               <div class="container">
                 <div class="row" ng-repeat="risposta in domanda.risposte">
-                  <input ng-disabled="!canEdit" class="col-auto" id="{{risposta.id+'.'+domanda.id}}" class="form-control" type="radio" value="{{risposta.id}}" ng-model="formData[domanda.id]">
+                  <input ng-disabled="isAC" class="col-auto" id="{{risposta.id+'.'+domanda.id}}" class="form-control" type="radio" value="{{risposta.id}}" ng-model="formData[domanda.id]">
                   <label class="col" for="{{risposta.id+'.'+domanda.id}}">{{risposta.testo}}</label>
                 </div>
               </div>
@@ -31,6 +31,8 @@
     </div>
     <br>
   </div>
-  <button ng-show="canEdit" class="btn btn-primary btn-lg mt-1" type="submit" ng-click="submit()">Invia risposte</button>
+  <button class="btn btn-secondary btn-lg mt-1" type="submit" ng-click="back()">Indietro</button>
+  <button ng-show="isAC && sondaggio.bozza" class="btn btn-secondary btn-lg mt-1" type="submit" ng-click="edit()">Modifica</button>
+  <button ng-show="!isAC" class="btn btn-primary btn-lg mt-1" type="submit" ng-click="submit()">Invia risposte</button>
 </div>
 

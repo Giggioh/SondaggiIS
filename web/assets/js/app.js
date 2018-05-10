@@ -1,6 +1,7 @@
 'use strict';
 
 var SondaggiIS = angular.module('SondaggiIS', ['ngRoute', 'ui.bootstrap']);
+var server='http://localhost';
 //Routes
 SondaggiIS.config(['$routeProvider',
   function($routeProvider) {
@@ -16,6 +17,9 @@ SondaggiIS.config(['$routeProvider',
     }).when('/logout', {
       templateUrl: '/templates/login.html',
       controller: 'LogoutCtrl'
+    }).when('/changePass', {
+      templateUrl: '/templates/changePass.html',
+      controller: 'ChangePassCtrl'
     }).when('/sondaggi', {
       templateUrl: '/templates/sondaggi.html',
       controller: 'ListaSondaggiCtrl'

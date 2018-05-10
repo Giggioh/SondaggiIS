@@ -2,7 +2,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
   return {
     getSondaggiUtente: function(filter) {
       var defer = $q.defer();
-      $http.post('/sondaggio/listaUtente', filter)
+      $http.post(server+'/sondaggio/listaUtente', filter)
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -11,7 +11,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
     },
     getSondaggiAC: function(filter) {
       var defer = $q.defer();
-      $http.post('/sondaggio/listaAC', filter)
+      $http.post(server+'/sondaggio/listaAC', filter)
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -21,7 +21,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
 
     getSondaggio: function(id) {
       var defer = $q.defer();
-      $http.post('/sondaggio/get', {id:id})
+      $http.post(server+'/sondaggio/get', {id:id})
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -30,7 +30,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
     },
     sendRisposte: function(id, risposte) {
       var defer = $q.defer();
-      $http.post('/sondaggio/compila', {id:id,risposte:risposte})
+      $http.post(server+'/sondaggio/compila', {id:id,risposte:risposte})
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -40,7 +40,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
 
     pubblica: function(id) {
       var defer = $q.defer();
-      $http.post('/sondaggio/pubblica', {id:id})
+      $http.post(server+'/sondaggio/pubblica', {id:id})
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -49,7 +49,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
     },
     chiudi: function(id) {
       var defer = $q.defer();
-      $http.post('/sondaggio/chiudi', {id:id})
+      $http.post(server+'/sondaggio/chiudi', {id:id})
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -59,7 +59,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
 
     store: function(data) {
       var defer = $q.defer();
-      $http.post('/sondaggio/store', data)
+      $http.post(server+'/sondaggio/store', data)
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -69,7 +69,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
 
     getStats: function(id) {
       var defer = $q.defer();
-      $http.post('/sondaggio/getStats', {id:id})
+      $http.post(server+'/sondaggio/getStats', {id:id})
         .then(function(resp){
           defer.resolve(resp);
         })
@@ -79,7 +79,7 @@ SondaggiIS.service('SondaggiService', function($http, $q) {
 
     calcStats: function(id) {
       var defer = $q.defer();
-      $http.post('/sondaggio/calcStats', {id:id})
+      $http.post(server+'/sondaggio/calcStats', {id:id})
         .then(function(resp){
           defer.resolve(resp);
         })

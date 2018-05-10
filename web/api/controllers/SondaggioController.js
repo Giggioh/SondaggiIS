@@ -18,7 +18,7 @@ module.exports = {
           listaSondaggiCompletati.push(ru.domanda.argomento.sondaggio.id);
       }
 
-      Sondaggio.findPop({bozza: false, id: {'!=': listaSondaggiCompletati}}, function (err, sondaggi) {
+      Sondaggio.findPop({bozza: false, id: {'!=': listaSondaggiCompletati}, chiuso: false}, function (err, sondaggi) {
         if (sondaggi == null) next(err);
         res.json(sondaggi);
       });
@@ -92,7 +92,15 @@ module.exports = {
       if (err) return res.serverError();
       return res.ok();
     });
+  },
 
+  chiudi: function (req, res, next) {
+    Sondaggio.update({id: req.param('id')}).set({
+      chiuso: true
+    }).exec(function (err, sond) {
+      if (err) return res.serverError();
+      return res.ok();
+    });
   },
 
   store: function (req, res, next) {

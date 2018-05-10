@@ -42,7 +42,7 @@ module.exports = {
   },
 
   //metodi per effettuare/verificare login
-  login: function(req,user,pass,callback) {
+  login: function(user,pass,callback) {
 
     //TODO: da togliere finito il testing di base
     if (user=='admin' && pass=='admin') {
@@ -63,7 +63,24 @@ module.exports = {
       delete account.hash; //non lo vogliamo nel payload!
       var jwt=jwtAuthService.issueToken(account);
 
-      callback(null,{account:account, token:jwt});
+      return callback(null,{account:account, token:jwt});
+    });
+
+  },
+
+  //metodi per effettuare/verificare login
+  changePass: function(account,newPass,callback) {
+
+    var hash=Account.computeHash(account.username,newPass);
+
+    //è importante che sia popolato, perchè quei dati ci servono durante la sessione!
+    Account.update({id: account.id}).set({hash: hash}).exec(function(err,account) {
+      if (err) return callback(err);
+
+      delete account.hash; //non lo vogliamo nel payload!
+      var jwt=jwtAuthService.issueToken(account);
+
+      return callback(null,{account:account, token:jwt});
     });
 
   },

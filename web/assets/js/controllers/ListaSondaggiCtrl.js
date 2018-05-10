@@ -1,4 +1,4 @@
-SondaggiIS.controller('ListaSondaggiCtrl', function($scope, $location, LoginService, SondaggiService) {
+SondaggiIS.controller('ListaSondaggiCtrl', function($scope,$route, $location, LoginService, SondaggiService) {
 
   if (!LoginService.isLoggedIn()) $location.path('/login');
 
@@ -31,13 +31,14 @@ SondaggiIS.controller('ListaSondaggiCtrl', function($scope, $location, LoginServ
   }
   $scope.pubblica=function(sondaggio) {
     SondaggiService.pubblica(sondaggio.id).then(function (resp) { //TODO: success stuff
-      $location.path('/sondaggio/'+sondaggio.id);
+      $route.reload();
     }).catch(function (err) {
       $location.path('/error');
     });
   }
   $scope.chiudi=function(sondaggio) {
     SondaggiService.chiudi(sondaggio.id).then(function (resp) {
+      $route.reload();
     }).catch(function (err) {
       $location.path('/error');
     });
