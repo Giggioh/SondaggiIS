@@ -1,6 +1,6 @@
-SondaggiIS.controller('ListaSondaggiCtrl', function($scope,$route, $location, LoginService, SondaggiService) {
+SondaggiIS.controller('ListaSondaggiCtrl', ['$scope','$route','$location','LoginService','SondaggiService',function($scope,$route, $location, LoginService, SondaggiService) {
 
-  if (!LoginService.isLoggedIn()) $location.path('/login');
+  if (!LoginService.isLoggedIn()) $location.path('login');
 
   $scope.sondaggi=[];
   $scope.showAC=false;
@@ -9,39 +9,39 @@ SondaggiIS.controller('ListaSondaggiCtrl', function($scope,$route, $location, Lo
     SondaggiService.getSondaggiUtente(null).then(function (resp) {
       $scope.sondaggi = resp.data;
     }).catch(function (err) {
-      $location.path('/error');
+      $location.path('error');
     });
   } else if (LoginService.isAC()) {
     $scope.showAC=true;
     SondaggiService.getSondaggiAC(null).then(function (resp) {
       $scope.sondaggi = resp.data;
     }).catch(function (err) {
-      $location.path('/error');
+      $location.path('error');
     });
   }
 
   $scope.compila=function(sondaggio) {
-    $location.path("/sondaggio/"+sondaggio.id);
+    $location.path("sondaggio/"+sondaggio.id);
   }
   $scope.modifica=function(sondaggio) {
-    $location.path("/edit/"+sondaggio.id);
+    $location.path("edit/"+sondaggio.id);
   }
   $scope.stats=function(sondaggio) {
-    $location.path("/stats/"+sondaggio.id);
+    $location.path("stats/"+sondaggio.id);
   }
   $scope.pubblica=function(sondaggio) {
     SondaggiService.pubblica(sondaggio.id).then(function (resp) { //TODO: success stuff
       $route.reload();
     }).catch(function (err) {
-      $location.path('/error');
+      $location.path('error');
     });
   }
   $scope.chiudi=function(sondaggio) {
     SondaggiService.chiudi(sondaggio.id).then(function (resp) {
       $route.reload();
     }).catch(function (err) {
-      $location.path('/error');
+      $location.path('error');
     });
   }
 
-});
+}]);

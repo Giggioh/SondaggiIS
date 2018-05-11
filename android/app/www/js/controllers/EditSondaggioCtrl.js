@@ -1,7 +1,7 @@
-SondaggiIS.controller('EditSondaggioCtrl', function($scope, $location,$routeParams, LoginService, SondaggiService) {
+SondaggiIS.controller('EditSondaggioCtrl', ['$scope','$location','$routeParams','LoginService','SondaggiService',function($scope, $location,$routeParams, LoginService, SondaggiService) {
 
-  if (!LoginService.isLoggedIn()) $location.path('/login');
-  if (!LoginService.isAC()) $location.path('/error');
+  if (!LoginService.isLoggedIn()) $location.path('login');
+  if (!LoginService.isAC()) $location.path('error');
 
   var sondaggioID=$routeParams.id;
 
@@ -10,11 +10,11 @@ SondaggiIS.controller('EditSondaggioCtrl', function($scope, $location,$routePara
 
   if (sondaggioID) {
     SondaggiService.getSondaggio(sondaggioID).then(function(resp) {
-      if (!resp.data.bozza) $location.path('/error');
-      if (resp.data.amministratoreContenuti.id!=LoginService.getCurrentAccount().amministratoreContenuti[0].id) $location.path('/error');
+      if (!resp.data.bozza) $location.path('error');
+      if (resp.data.amministratoreContenuti.id!=LoginService.getCurrentAccount().amministratoreContenuti[0].id) $location.path('error');
       $scope.formData=resp.data;
     }).catch(function(err) {
-      $location.path('/error');
+      $location.path('error');
     });
   }
 
@@ -42,13 +42,13 @@ SondaggiIS.controller('EditSondaggioCtrl', function($scope, $location,$routePara
     $scope.formData.bozza=!pubblica;
     console.log($scope.formData)
     SondaggiService.store($scope.formData).then(function(resp) {
-      $location.path('/sondaggio/'+resp.data.id);
+      $location.path('sondaggio/'+resp.data.id);
     }).catch(function(err) {
-      $location.path('/error');
+      $location.path('error');
     })
   }
   $scope.exit=function() {
-    $location.path('/sondaggi');
+    $location.path('sondaggi');
   }
 
-});
+}]);
